@@ -26,6 +26,11 @@ class Vector2D {
         y += v.y;
     }
 
+    void add(Vector2D v, double scalar) {
+        x += v.x * scalar;
+        y += v.y * scalar;
+    }
+
     Vector2D() {
         x = 0;
         y = 0;

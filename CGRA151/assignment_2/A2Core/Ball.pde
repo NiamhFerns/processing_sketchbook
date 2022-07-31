@@ -23,8 +23,8 @@ class Ball {
         return position.y + v.y;
     }
 
-    public void move(Vector2D velocity) {
-        this.position.add(velocity);
+    public void move(Vector2D velocity, double dt) {
+        this.position.add(velocity, dt);
     }
 
     public Ball() {
