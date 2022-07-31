@@ -1,12 +1,12 @@
 class Ball {
-    private Vector2D position;
+    public Vector2D position;
     public float radius;
     private color currentColor;
 
     public void draw() {
         color restore = g.fillColor;
         fill(currentColor);
-        ellipse(position.x, position.y, radius, radius);
+        ellipse(position.x, position.y, 2 * radius, 2 * radius);
         fill(restore);
     }
 
