@@ -7,6 +7,11 @@ class Vector2D {
         y = -y;
     }
 
+    void invert(Vector2D v) {
+        x = v.x >= 0 ? -x : x; 
+        y = v.y >= 0 ? -y : y; 
+    }
+
     void invertX() {
         x = -x;
     }
@@ -29,6 +34,10 @@ class Vector2D {
     void add(Vector2D v, double scalar) {
         x += v.x * scalar;
         y += v.y * scalar;
+    }
+
+    float norm() {
+        return sqrt(x * x + y * y);
     }
 
     Vector2D() {
