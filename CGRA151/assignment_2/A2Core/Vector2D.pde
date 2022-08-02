@@ -13,11 +13,6 @@ class Vector2D {
     }
     void invertX() { x = -x; }
     void invertY() { y = -y; }
-    void reflect() {
-        float t = x;
-        x = -y;
-        y = -t;
-    }
 
     // Math methods.
     void add(Vector2D v) {

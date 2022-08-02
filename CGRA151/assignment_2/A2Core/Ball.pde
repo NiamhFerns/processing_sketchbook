@@ -24,7 +24,7 @@ class Ball extends Circle {
                                 && (nextY() <= rt.getY() || nextY() >= rt.getY() + rt.getHeight()); // The ball is above or bellow the bat.
 
         // Yes I know this is gross. I ran out of time to refactor it to not be gross. ;-;
-        if (cornerCollision) { velocity.reflect(); return; }
+        if (cornerCollision) { print( "Velocity Before: (" + velocity.x + ", " + velocity.y + ")!\n"); velocity.invert(); print("Velocity After: (" + velocity.x + ", " + velocity.y + ")!\n"); return; }
         if (nextX() <= rt.getX() || nextX() >= rt.getX() + rt.getWidth()) velocity.invertX();
         if (nextY() <= rt.getY() || nextY() >= rt.getY() + rt.getHeight()) velocity.invertY();
 
@@ -39,7 +39,10 @@ class Ball extends Circle {
         Vector2D rToBat = new Vector2D(0.0, 0.0);
         rayToRect(bat, rToBat);
 
-        // We only want one collision event.
+        // We only want one collision event. This is a very niave way of handling this issue and it doesn't fix the issue of hitting the ball in the direction it is already travelling in.
+        // To fix this more thoroughly I'd need to have someway to have a vector distance that the centre of the ball is *into* the bat and then move the ball along that vector as well as
+        // by the velocity already set. I'd also need to be able to some how detect if the ball is travelling downward when it hits the bottomside and only reflect it if it is travelling 
+        // up when it hits the bottom, down when it hits the top, etc etc.
         if (rToBat.norm() <= radius && free) { collidesWith(bat); free = false; }
         else if (rToBat.norm() > radius) free = true;
     }

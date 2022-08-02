@@ -23,6 +23,11 @@ class Rectangle {
         this.position.y = position.y;
     }
 
+    public void setPos(float x, float y) {
+        this.position.x = x;
+        this.position.y = y;
+    }
+
     public Rectangle(int w, int h, Vector2D position) {
         this.position = position;
         this.w = w;

@@ -5,7 +5,7 @@ Bat bat;
 int targetFPS;
 float dt, previousTime;
 
-void deltaTime() {
+private void deltaTime() {
     dt = millis() - previousTime;
     previousTime = millis();
 }
@@ -18,11 +18,12 @@ void setup() {
     bat = new Bat();
 }
 
-void update() {
+private void update() {
     deltaTime();
 
     // Update Objects.
     ball.update();
+    bat.update();
 }
 
 void draw(){
