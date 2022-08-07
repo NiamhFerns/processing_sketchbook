@@ -19,12 +19,19 @@ private void myLine(float x0, float y0, float x1, float y1) {
     };
 
     // Octant 2 & 6
-    if ((m > 1)) print("Octant 2!\n");
+    if ((m > 1)) {
+        float t = y1;
+        y1 = x1;
+        x1 = t;
+        if (x0 > x1) {
+            t = x0; x0 = x1; x1 = t;
+            t = y0; y0 = y1; y1 = t;
+        }
+    };
     // Octant 3 & 7
     if ((m < 0 && m >= -1)) print("Octant 3!\n");
     // Octant 4 & 8
     if ((m < -1)) print("Octant 4!\n");
-
     // Main Alg
     float a = -1 * (y1 - y0);
     float b = (x1 - x0);
@@ -46,7 +53,8 @@ private void myLine(float x0, float y0, float x1, float y1) {
     float k = a * (x + 1) + b * (y + 1/2) + c;
 
     while(x <= xr) {
-        point(x, y);
+        if (m <= 1) point(x, y);
+        else point(y, x);
         if (k > 0) { k = k + a; }
         else       { k = k + a + b; y += 1; }
 
@@ -74,16 +82,16 @@ void draw(){
     line(100, 100, 150, 200);
     stroke(0, 0, 0);
     myLine(100, 100, 150, 200);
-    // oct 3
-    stroke(255, 0, 0);
-    line(100, 100, 50, 200);
-    stroke(0, 0, 0);
-    myLine(100, 100, 50, 200);
-    // oct 4
-    stroke(255, 0, 0);
-    line(100, 100, 0, 170);
-    stroke(0, 0, 0);
-    myLine(100, 100, 0, 170);
+    // // oct 3
+    // stroke(255, 0, 0);
+    // line(100, 100, 50, 200);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 50, 200);
+    // // oct 4
+    // stroke(255, 0, 0);
+    // line(100, 100, 0, 170);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 0, 170);
     // oct 5
     stroke(255, 0, 0);
     line(100, 100, 0, 70);
@@ -94,14 +102,14 @@ void draw(){
     line(100, 100, 70, 0);
     stroke(0, 0, 0);
     myLine(100, 100, 70, 0);
-    // oct 7
-    stroke(255, 0, 0);
-    line(100, 100, 150, 0);
-    stroke(0, 0, 0);
-    myLine(100, 100, 150, 0);
-    // oct 8
-    stroke(255, 0, 0);
-    line(100, 100, 200, 70);
-    stroke(0, 0, 0);
-    myLine(100, 100, 200, 70);
+    // // oct 7
+    // stroke(255, 0, 0);
+    // line(100, 100, 150, 0);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 150, 0);
+    // // oct 8
+    // stroke(255, 0, 0);
+    // line(100, 100, 200, 70);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 200, 70);
 }
