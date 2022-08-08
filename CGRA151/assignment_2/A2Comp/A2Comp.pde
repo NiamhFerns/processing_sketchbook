@@ -4,7 +4,7 @@ Bat bat;
 
 int targetFPS;
 float dt, previousTime;
-Tile[][] tiles = new Tile[4][16];
+Tile[][] tiles = new Tile[4][8];
 
 private void deltaTime() {
     dt = millis() - previousTime;
@@ -13,16 +13,16 @@ private void deltaTime() {
 
 
 void setup() {
-    size(1280, 760);
+    size(640, 480);
 
-    ball = new Ball(new Vector2D(400, 600), 15, new Vector2D(0.3, 0.3));
+    ball = new Ball(new Vector2D(width / 2, 400), 15, new Vector2D(0.1, 0.1));
     bat = new Bat();
 
-    int startX = (width - 16 * (70 + 8)) / 2;
+    int startX = (width - 8 * (70 + 8)) / 2 + 3;
 
     for (int y = 0; y < 4; ++y) {
-        for (int x = 0; x < 16; ++x) {
-            tiles[y][x] = new Tile(new Vector2D(startX + (x * (70 + 8)), 100 + (y * (25 + 8))));
+        for (int x = 0; x < 8; ++x) {
+            tiles[y][x] = new Tile(new Vector2D(startX + (x * (70 + 8)), 60 + (y * (25 + 8))));
         }
     }
 }
@@ -44,7 +44,7 @@ void draw(){
     ball.draw();
     bat.draw();
     for (int y = 0; y < 4; ++y) {
-        for (int x = 0; x < 16; ++x) {
+        for (int x = 0; x < 8; ++x) {
             if (tiles[y][x] != null) tiles[y][x].draw();
         }
     }

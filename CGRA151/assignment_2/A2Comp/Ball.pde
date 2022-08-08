@@ -45,7 +45,7 @@ class Ball extends Circle {
         else if (rToBat.norm() > radius) free = true;
 
         for (int y = 0; y < 4; ++y) {
-            for (int x = 0; x < 16; ++x) {
+            for (int x = 0; x < 8; ++x) {
                 if (tiles[y][x] != null) {
                     rayToRect(tiles[y][x], rToBat);
                     if(rToBat.norm() <= radius) { 
