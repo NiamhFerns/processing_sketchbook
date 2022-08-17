@@ -3,7 +3,7 @@ color background = color(255, 255, 255);
 void setup() {
     size(200, 200);
     
-    noLoop(); // You can comment this then uncomment the commented code in the draw() function
+    // noLoop(); // You can comment this then uncomment the commented code in the draw() function
               // for an interactive line drawing demonstration.
     noSmooth();
 }
@@ -73,47 +73,47 @@ void draw(){
 
     // stroke(255, 0, 0);
     // line(100, 100, mouseX, mouseY);
-    // stroke(0, 0, 0);
-    // myLine(100, 100, mouseX, mouseY);
+    stroke(0, 0, 0);
+    myLine(100, 100, mouseX, mouseY);
 
-    // oct 1 [X]
-    stroke(255, 0, 0);
-    line(100, 100, 200, 170);
-    stroke(0, 0, 0);
-    myLine(100, 100, 200, 170);
-    // oct 2 [X]
-    stroke(255, 0, 0);
-    line(100, 100, 150, 200);
-    stroke(0, 0, 0);
-    myLine(100, 100, 150, 200);
-    // oct 3 [X]
-    stroke(255, 0, 0);
-    line(100, 100, 50, 200);
-    stroke(0, 0, 0);
-    myLine(100, 100, 50, 200);
-    // oct 4 [X]
-    stroke(255, 0, 0);
-    line(100, 100, 0, 170);
-    stroke(0, 0, 0);
-    myLine(100, 100, 0, 170);
-    // oct 5 [X]
-    stroke(255, 0, 0);
-    line(100, 100, 0, 70);
-    stroke(0, 0, 0);
-    myLine(100, 100, 0, 70);
-    // oct 6 [X]
-    stroke(255, 0, 0);
-    line(100, 100, 70, 0);
-    stroke(0, 0, 0);
-    myLine(100, 100, 70, 0);
-    // oct 7 [X]
-    stroke(255, 0, 0);
-    line(100, 100, 150, 0);
-    stroke(0, 0, 0);
-    myLine(100, 100, 150, 0);
-    //oct 8 [X]
-    stroke(255, 0, 0);
-    line(100, 100, 200, 70);
-    stroke(0, 0, 0);
-    myLine(100, 100, 200, 70);
+    // // oct 1 [X]
+    // stroke(255, 0, 0);
+    // line(100, 100, 200, 170);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 200, 170);
+    // // oct 2 [X]
+    // stroke(255, 0, 0);
+    // line(100, 100, 150, 200);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 150, 200);
+    // // oct 3 [X]
+    // stroke(255, 0, 0);
+    // line(100, 100, 50, 200);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 50, 200);
+    // // oct 4 [X]
+    // stroke(255, 0, 0);
+    // line(100, 100, 0, 170);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 0, 170);
+    // // oct 5 [X]
+    // stroke(255, 0, 0);
+    // line(100, 100, 0, 70);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 0, 70);
+    // // oct 6 [X]
+    // stroke(255, 0, 0);
+    // line(100, 100, 70, 0);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 70, 0);
+    // // oct 7 [X]
+    // stroke(255, 0, 0);
+    // line(100, 100, 150, 0);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 150, 0);
+    // //oct 8 [X]
+    // stroke(255, 0, 0);
+    // line(100, 100, 200, 70);
+    // stroke(0, 0, 0);
+    // myLine(100, 100, 200, 70);
 }
