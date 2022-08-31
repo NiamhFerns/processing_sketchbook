@@ -13,6 +13,6 @@ class Cell implements GamePart {
 
     public Cell(String cellID) {
         this.cellID = cellID;
-        contains = new EmptyChessPiece();
+        contains = new ChessPiece();
     }
 }
