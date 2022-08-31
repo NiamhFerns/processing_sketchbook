@@ -1,5 +1,5 @@
 // Chess Piece States
-interface PieceType {
+interface PieceType extends Globals {
     public ArrayList<String> getPossibleMoves();
 }
 
@@ -38,7 +38,7 @@ public class ChessPiece implements GamePart {
     private ArrayList<String> possibleMoves;
     private boolean recheckMoves = true;
 
-    public void update() { if(recheckMoves) possibleMoves = type.getPossibleMoves(); }
+    public void update(Chess chess) { if(recheckMoves) possibleMoves = type.getPossibleMoves(); }
     public void draw()   {}
 
     ChessPiece() {

@@ -1,13 +1,16 @@
-class Game {
-    // Constants
-    public static final int BOARDWIDTH  = 8;
-    public static final int BOARDHEIGHT = 8;
+interface Globals {
+    // Primitive Globals
+    int BOARDSIZE = 800;
+    int DIMENSION = 8;
+    int CELLSIZE = BOARDSIZE / DIMENSION;
+}
 
-    Cell[][] cells;
+class Chess implements Globals {
+    ChessBoard board = new ChessBoard();
     ArrayList<GamePart> parts; // ECS ArrayList
 
     public void tick() {
-        for (GamePart part : parts) { part.update(); }
+        for (GamePart part : parts) { part.update(this); }
         for (GamePart part : parts) { part.draw();   }
     }
 
@@ -15,32 +18,26 @@ class Game {
         // draw cells.
     }
 
-    Game() {
+    Chess() {
         // Here we're initialising a very basic ECS that will be based on an observer.
         // Each part of the game will, as it's created, be added to this list and will have the correct methods called every tick.
         parts = new ArrayList<GamePart>();
-        cells = new Cell[BOARDHEIGHT][BOARDWIDTH];
-        for (int y = 0; y < BOARDHEIGHT; y++) {
-            for (int x = 0; x < BOARDWIDTH; x++) {
-                // We are adding our cells such that they read from left to right; top to bottom.
-                cells[y][x] = new Cell(str(char(65 + x)) + (8 - y));
-                parts.add(cells[y][x]);
-            }
-        }
+        parts.add(board);
     }
 }
 
-Game gm;
+Chess game;
 
 void setup() {
-    size(640, 480);
+    size(1000, 1000);
     frameRate(60);
-    gm = new Game();
+    game = new Chess();
 }
 
 // This will act as the subject in our observer.
 void draw() {
-    background(255); 
-    gm.tick();
+    clear();
+    background(255);
+    game.tick();
 }
 
