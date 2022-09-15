@@ -1,5 +1,6 @@
 class ChessBoard implements Globals, GamePart {
     private Cell[][] cells;
+    private Cell activeCell;
 
     ChessBoard() {
         cells = new Cell[DIMENSION][DIMENSION];
@@ -17,10 +18,11 @@ class ChessBoard implements Globals, GamePart {
     }
 
     public void update(Chess chess) {
+        activeCell = null;
         for (int y = 0; y < cells.length; y++) {
             for (int x = 0; x < cells[y].length; x++) {
-                // We are adding our cells such that they read from left to right; top to bottom.
                 cells[y][x].update(chess);
+                if (cells[y][x].isActive()) activeCell = cells[y][x];
             }
         }
     }
@@ -28,13 +30,16 @@ class ChessBoard implements Globals, GamePart {
     public void draw() {
         // Centre the board.
         pushMatrix();
-        translate((width - BOARDSIZE) / 2, (height - BOARDSIZE) / 2);
+        translate(BOARDOFFSET, BOARDOFFSET);
         for (int y = 0; y < cells.length; y++) {
             for (int x = 0; x < cells[y].length; x++) {
-                // We are adding our cells such that they read from left to right; top to bottom.
                 cells[y][x].draw();
             }
         }
         popMatrix();
+    }
+
+    public void mousePressed() {
+        
     }
 }

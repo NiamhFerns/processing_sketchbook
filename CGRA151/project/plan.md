@@ -1,6 +1,7 @@
 # Vision
 ## Game Concept
-A pixel chess game where the player is playing against a computer. The game will
+A pixel-art chess game where the player is playing against either computer or 
+another player. The game will
 follow the standard rules of chess pitting the player against a redamentary chess
 AI. The game will be made out of pixel art and will have a menu at the beginning
 that allows the player to enable/disable a timer and select their colour.
