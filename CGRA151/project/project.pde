@@ -7,8 +7,9 @@ interface Globals {
 }
 
 class Chess implements Globals {
-    ChessBoard board;
-    ArrayList<GamePart> parts; // ECS ArrayList
+    private ChessBoard board;
+    private ArrayList<GamePart> parts; // ECS ArrayList
+    private EventHandler eventHandler;
 
     public void tick() {
         for (GamePart part : parts) { part.update(this); }
@@ -19,9 +20,14 @@ class Chess implements Globals {
         // draw cells.
     }
 
+    public void mouseClicked() {
+        eventHandler.mouseClicked();
+    }
+
     Chess() {
         // Here we're initialising a very basic ECS that will be based on an observer.
         // Each part of the game will, as it's created, be added to this list and will have the correct methods called every tick.
+        eventHandler = new EventHandler();
         board = new ChessBoard();
         parts = new ArrayList<GamePart>();
         parts.add(board);
@@ -43,3 +49,7 @@ void draw() {
     game.tick();
 }
 
+// All actions are caught here and then passed through the game to the event handler.
+void mouseClicked() {
+    game.mouseClicked();
+}

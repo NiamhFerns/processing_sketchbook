@@ -1,9 +1,7 @@
-private static class CellStatus { 
-    enum State {
-        ACTIVE,
-        INACTIVE,
-        SELECTED
-    }
+private enum State {
+    ACTIVE,
+    INACTIVE,
+    SELECTED
 }
 
 class Cell implements Globals, GamePart {
@@ -11,15 +9,15 @@ class Cell implements Globals, GamePart {
     ChessPiece contains;
     Vector2D position;
     color cellBackground;
-    CellStatus.State state;
+    State state;
 
-    public boolean isActive() { return state == CellStatus.State.ACTIVE; }
+    public boolean isActive() { return state == State.ACTIVE; }
     public String getID() { return cellID; }
 
     public void update(Chess chess) {
         boolean xBound = mouseX > position.x() + BOARDOFFSET && mouseX < position.x() + CELLSIZE + BOARDOFFSET;
         boolean yBound = mouseY > position.y() + BOARDOFFSET && mouseY < position.y() + CELLSIZE + BOARDOFFSET;
-        state = xBound && yBound && state != CellStatus.State.SELECTED ? CellStatus.State.ACTIVE : CellStatus.State.INACTIVE;
+        state = xBound && yBound && state != State.SELECTED ? State.ACTIVE : State.INACTIVE;
     }
 
     public void draw() {
@@ -35,6 +33,6 @@ class Cell implements Globals, GamePart {
         this.position = position;
         this.cellBackground = cellBackground;
         contains = new ChessPiece();
-        state = CellStatus.State.INACTIVE;
+        state = State.INACTIVE;
     }
 }
