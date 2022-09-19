@@ -1,11 +1,11 @@
 // Globals
 Game GAME;
 Camera CAMERA;
-float MAXVELOCITY = 5.0f;
+float MAXVELOCITY = 3.0f;
 
 void setup() {
     frameRate(60);
-    size(2560, 1440);
+    size(640, 360);
 
     CAMERA = new Camera();
     GAME = new Game();

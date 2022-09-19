@@ -4,6 +4,9 @@ class Player implements GamePart {
 
     float playerWidth;
     float playerHeight;
+    
+    public float x() { return position.x(); }
+    public float y() { return position.y(); }
 
     // On Creation of Player.
     public Player() {
@@ -33,6 +36,6 @@ class Player implements GamePart {
     // On draw of Player.
     public void draw() {
         fill(0);
-        rect(position.x(), position.y(), playerWidth, playerHeight);
+        rect(position.x() - CAMERA.x(), position.y() - CAMERA.y(), playerWidth, playerHeight);
     }
 }
