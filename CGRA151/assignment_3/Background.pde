@@ -1,9 +1,9 @@
 class Background implements GamePart {
     PImage texture;
-    int zIndex;
-    float scrollRatio;
-    Vector2D origin;
-    Vector2D position;
+    int zIndex;            // The backgrounds 'load order' and z position.
+    float scrollRatio;     // ratio used to determine how much to move the background.
+    Vector2D origin;       // Where the background is from the origin.
+    Vector2D position;     // Where the background has moved to based on camera position.
 
     public void update() {
         // Draw our background on the origin shifted by the camera's current 
@@ -19,7 +19,7 @@ class Background implements GamePart {
         // Convert index into a scroll ratio.
         // This removes the need to do an expensive division in the update() method.
         this.zIndex = zIndex;
-        scrollRatio = 1.0f / zIndex * 0.9f;
+        scrollRatio = 1.0f / zIndex;
         origin = new Vector2D(0.0f, 0.0f);
 
         texture = loadImage(texturePath);

@@ -1,6 +1,6 @@
 class Game {
     Player player;
-    ArrayList<GamePart> parts;
+    ArrayList<GamePart> parts; // Observers to update every tick.
 
     public float playerX() { return player.x(); } 
     public float playerY() { return player.y(); } 
@@ -22,6 +22,7 @@ class Game {
         parts.add(player);
     }
 
+    // On each tick, update our game entities.
     public void update() {
         for(GamePart part : parts) {
             part.update();

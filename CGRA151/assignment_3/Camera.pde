@@ -14,9 +14,7 @@ class Camera implements GamePart {
             position = new Vector2D(GAME.playerX() - 100, position.y());
     }
 
-    public void draw() {
-
-    }
+    public void draw() {}
     
     public Camera() {
         position = new Vector2D(0.0f, 0.0f);
