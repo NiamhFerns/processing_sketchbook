@@ -9,8 +9,8 @@ class Game {
     public float playerY() { return player.y(); } 
 
     public void keyPress(int code) {
-        if (code == LEFT) player.moveLeft();
-        if (code == RIGHT) player.moveRight();
+        if (code == LEFT || code == 'A' || code == 'a') player.moveLeft();
+        if (code == RIGHT || code == 'D' || code == 'd') player.moveRight();
         if (code == ' ') player.jump();
     }
 
