@@ -1,10 +1,11 @@
 class Background implements GamePart {
-    PImage texture;
-    int zIndex;            // The backgrounds 'load order' and z position.
-    float scrollRatio;     // ratio used to determine how much to move the background.
-    Vector2D origin;       // Where the background is from the origin.
-    Vector2D position;     // Where the background has moved to based on camera position.
-    int repeatsFromOrigin;
+    private PImage texture;
+
+    private int zIndex;            // The backgrounds 'load order' and z position.
+    private float scrollRatio;     // ratio used to determine how much to move the background.
+    private Vector2D origin;       // Where the background is from the origin.
+    private Vector2D position;     // Where the background has moved to based on camera position.
+    private int repeatsFromOrigin; // How far away from origin to draw a repeated background.
 
     public void update() {
         // Draw our background on the origin shifted by the camera's current 

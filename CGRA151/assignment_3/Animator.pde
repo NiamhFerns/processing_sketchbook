@@ -1,7 +1,7 @@
 class Animator {
-    HashMap<String, PImage[]> animations;
-    String currentlyPlaying;
-    int animationLength;
+    private HashMap<String, PImage[]> animations;
+    private String currentlyPlaying;
+    private int animationLength;
 
     public Animator() {
         animations = new HashMap<String, PImage[]>();
@@ -25,12 +25,11 @@ class Animator {
     public int getLength(String name) {
         return animations.get(name).length * 3;
     }
-    
-    // Grab the current frame based on the currently playing animation and the current animation index.
-    // public PImage currentFrame() {
-    //     return animations.get(currentlyPlaying)[animationIndex];
-    // }
 
+    public int getWidth(String name) {
+        return animations.get(name)[0].width;
+    }
+    
     // Grab the next frame in an animation starting from 0 if different animation animation.
     public PImage nextFrame(String name) {
         // Next frame if this is the current animation continued.

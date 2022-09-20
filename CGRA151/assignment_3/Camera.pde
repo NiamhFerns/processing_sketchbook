@@ -1,7 +1,8 @@
 class Camera implements GamePart {
-    Vector2D position;
+    private Vector2D position;
     
     public float x() { return position.x(); }
+    
     public float y() { return position.y(); }
 
     public void update() {
