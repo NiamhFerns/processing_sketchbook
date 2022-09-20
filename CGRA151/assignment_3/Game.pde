@@ -10,6 +10,7 @@ class Game {
         if (code == DOWN) print("Down\n");
         if (code == LEFT) player.moveLeft();
         if (code == RIGHT) player.moveRight();
+        if (code == ' ') player.jump();
     }
 
     public Game() {
