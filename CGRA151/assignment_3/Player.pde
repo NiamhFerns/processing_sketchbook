@@ -13,6 +13,7 @@ class Player implements GamePart {
     // Player physics fields.
     private Vector2D position;
     private Vector2D velocity;
+    private boolean midAir;
 
     // Player animation fields.
     private Animator animator;                   // Manages animation sequences.
@@ -23,18 +24,21 @@ class Player implements GamePart {
 
     // Properties functions.
     public float x() { return position.x(); }
+    
     public float y() { return position.y(); }
 
     // On Creation of Player.
     public Player() {
         // Set properties and starting location.
-        playerWidth = 24;
-        playerHeight = 52;
-        position = new Vector2D(width / 2, height - 65);
+        playerWidth = 25;
+        playerHeight = 65;
+        position = new Vector2D(width / 2, height - playerHeight);
         velocity = new Vector2D(0.0f, 0.0f);
+        midAir = false;
 
         // Add players possible animations.
         animator = new Animator();
+        animator.setAnimationSpeed(5);
         animator.add(AnimationCycle.IDLE, "idle.png", 22, 32, 6, 2);
         animator.add(AnimationCycle.RUN, "run.png", 25, 34, 8, 2);
         animator.add(AnimationCycle.JUMP, "jump.png", 30, 35, 10, 2);
@@ -66,16 +70,25 @@ class Player implements GamePart {
         facingBack = false;
     }
 
+    // Add a vertial impulse and then lock in the JUMP animation cycle.
     public void jump() {
+        if (midAir) return;
+        midAir = true;
         animationLock = true;
-        currentAnimation = AnimationCycle.JUMP;
+        velocity = velocity.add(0.0f, -10.0f);
 
+        currentAnimation = AnimationCycle.JUMP;
         animationLockTimer = animator.getLength(AnimationCycle.JUMP);
     }
 
     // On update of Player.
     public void update() {
         animationLockTimer--;
+        if (position.y() + playerHeight < height) velocity = velocity.add(0, 1);
+        else if (position.y() + playerHeight > height) {
+            velocity = new Vector2D(velocity.x(), 0.0f);
+            position = new Vector2D(position.x(), height - playerHeight);
+        }
         position = position.add(velocity);
 
         // We aren't using keyReleased in this case so we check each frame if a key is
@@ -83,7 +96,10 @@ class Player implements GamePart {
         if (!keyPressed) { 
             velocity.zeroX();
             if (!animationLock) currentAnimation = AnimationCycle.IDLE;
-            if (animationLockTimer <= 0) unlockAnimation();
+            if (animationLockTimer <= 0) { 
+                unlockAnimation(); 
+                midAir = false; 
+            }
         }
     }
 
