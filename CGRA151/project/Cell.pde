@@ -4,7 +4,7 @@ private enum State {
     SELECTED
 }
 
-class Cell implements Globals, GamePart {
+class Cell implements GamePart {
     String cellID;
     ChessPiece contains;
     Vector2D position;
@@ -14,7 +14,7 @@ class Cell implements Globals, GamePart {
     public boolean isActive() { return state == State.ACTIVE; }
     public String getID() { return cellID; }
 
-    public void update(Chess chess) {
+    public void update() {
         boolean xBound = mouseX > position.x() + BOARDOFFSET && mouseX < position.x() + CELLSIZE + BOARDOFFSET;
         boolean yBound = mouseY > position.y() + BOARDOFFSET && mouseY < position.y() + CELLSIZE + BOARDOFFSET;
         state = xBound && yBound && state != State.SELECTED ? State.ACTIVE : State.INACTIVE;

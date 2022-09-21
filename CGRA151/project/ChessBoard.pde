@@ -1,4 +1,4 @@
-class ChessBoard implements Globals, GamePart {
+class ChessBoard implements GamePart {
     private Cell[][] cells;
     private Cell activeCell;
 
@@ -17,11 +17,11 @@ class ChessBoard implements Globals, GamePart {
         }
     }
 
-    public void update(Chess chess) {
+    public void update() {
         activeCell = null;
         for (int y = 0; y < cells.length; y++) {
             for (int x = 0; x < cells[y].length; x++) {
-                cells[y][x].update(chess);
+                cells[y][x].update();
                 if (cells[y][x].isActive()) activeCell = cells[y][x];
             }
         }

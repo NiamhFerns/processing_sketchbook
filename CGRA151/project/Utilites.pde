@@ -1,0 +1,3 @@
+interface Executable{
+    void run();
+}
