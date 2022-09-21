@@ -26,7 +26,7 @@ class Chess {
         parts = new ArrayList<GamePart>();
         
 
-        menu = new Menu();
+        menu = new StartMenu();
         parts.add(menu);
     }
 }
