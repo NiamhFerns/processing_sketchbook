@@ -36,3 +36,12 @@ void draw() {
 void mouseClicked() {
     EVENTS.mouseClicked();
 }
+
+void keyPressed() {
+    if (keyCode == 27) key = 0; // Override processings auto exit on escape function.
+    EVENTS.keyPressed(keyCode);
+}
+
+void keyReleased() {
+    EVENTS.keyReleased(keyCode);
+}

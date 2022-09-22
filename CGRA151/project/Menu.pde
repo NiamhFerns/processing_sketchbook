@@ -5,6 +5,7 @@ abstract class Menu implements GamePart {
     private boolean visible;
     private HashMap<String, Button> buttons;
     private Executable currentButtonAction;
+    private String menuName;
 
     public Executable getClickable() {
         return currentButtonAction;
@@ -14,10 +15,19 @@ abstract class Menu implements GamePart {
         buttons.put(button.getLabel(), button);
     }
 
-    Menu() {
+    Menu(String menuName) {
         buttons = new HashMap<String, Button>();
-
+        visible = true;
+        this.menuName = menuName;
     }
+    
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public boolean visible() { return visible; } 
+
+    public String getName() { return menuName; }
 
     public void update() {
         currentButtonAction = new EMPTY_EXECUTABLE();
@@ -57,10 +67,12 @@ class StartMenu extends Menu {
     Executable quitGame = new Executable() {
         public void run() {
             print("[MENU > QUITGAME] RUN EXECUTABLE: Game quitting...\n");
+            exit();
         }
     };
 
     public StartMenu() {
+        super("StartMenu");
         addButton(new Button(
             gameStart,
             "StartGame",
@@ -83,11 +95,18 @@ class PauseMenu extends Menu {
     // ----------------------------------------------------------------------------
     //                              Lambdas to Run
     // ----------------------------------------------------------------------------
-    Executable gameStart = new Executable(){
+    Executable newGame = new Executable(){
         public void run() {
-            print("[MENU > GAMESTART] RUN EXECUTABLE: Game starting...\n");
+            print("[MENU > NEWGAME] RUN EXECUTABLE: Resetting board...\n");
             GAME.newGame();
             EVENTS.setState(EventStates.GAMEPLAY);
+        }
+    };
+    
+    Executable returnToStart = new Executable() {
+        public void run() {
+            print("[MENU > RETURNTOSTART] RUN EXECUTABLE: Exiting level and returning to start screen...\n");
+            GAME.exitToMenu();
         }
     };
 
@@ -96,14 +115,28 @@ class PauseMenu extends Menu {
             print("[MENU > QUITGAME] RUN EXECUTABLE: Game quitting...\n");
         }
     };
-    
+    // ----------------------------------------------------------------------------
+    //                              Lambdas to Run
+    // ----------------------------------------------------------------------------
     public PauseMenu() {
+        super("PauseMenu");
         addButton(new Button(
-            gameStart,
-            "StartGame",
-            new Vector2D(0.0f, 0.0f),
-            new Size(20.0f, 10.0f),
+            newGame,
+            "NewGame",
+            new Vector2D(width / 2 - 150, height / 2 + 150),
+            new Size(300.0f, 75.0f),
             color(0)
         ));
+        addButton(new Button(
+            returnToStart,
+            "exitToMenu",
+            new Vector2D(width / 2 - 150, height / 2 + 250),
+            new Size(300.0f, 75.0f),
+            color(0)
+        ));
+    }
+    
+    public void draw() {
+        if (visible()) super.draw();
     }
 }

@@ -5,34 +5,73 @@ public enum EventStates {
 }
 
 interface EventHandlerState {
-    void action();
+    void actionMouse();
+    void actionKey(int code);
+    void releaseKey(int code);
     String getName();
+    EventStates type();
 }
 
 private class StateMenu implements EventHandlerState {
-    void action() {
+    void actionMouse() {
         GAME.menu.getClickable().run();
     }
+    void actionKey(int code) {
+        switch(code) {
+            case 27: // Escape Key.
+                if(GAME.menu.getName() == "PauseMenu") {
+                    EVENTS.setState(EventStates.GAMEPLAY);
+                    GAME.menu.setVisible(false);
+                    break;
+                }
+                exit();
+                break;
+
+            default:
+                break;
+        }
+    }
+    void releaseKey(int code) {}
 
     String getName() {
         return "START_MENU";
     }
+
+    public EventStates type() { return EventStates.START_MENU; }
+
+    public String menuName() { return GAME.menu.getName(); }
 }
 
 private class StateGameOverview implements EventHandlerState {
-    void action() {}
+    void actionMouse() {}
+    void actionKey(int code) { 
+        switch(code) {
+            case 27: // Escape Key.
+                EVENTS.setState(EventStates.START_MENU);
+                GAME.menu.setVisible(true);
+                break;
+
+            default:
+                break;
+        }
+    }
+    void releaseKey(int code) { print("Hello Release."); }
     
     String getName() {
         return "GAMEPLAY";
     }
+    public EventStates type() { return EventStates.GAMEPLAY; }
 }
 
 private class StateGameMove implements EventHandlerState {
-    void action() {}
+    void actionMouse() {}
+    void actionKey(int code) {}
+    void releaseKey(int code) {}
     
     String getName() {
         return "PIECE_SELECTED";
     }
+    public EventStates type() { return EventStates.PIECE_SELECTED; }
 }
 
 class EventHandler {
@@ -61,10 +100,22 @@ class EventHandler {
         }
     } 
 
+    public EventStates currentState() {
+        return evState.type();
+    } 
+
     // Effected by state
     void mouseClicked() {
-        evState.action();
+        evState.actionMouse();
         // setState(EventStates.GAMEPLAY);
+    }
+
+    void keyPressed(int code) {
+        evState.actionKey(code);
+    }
+
+    void keyReleased(int code) {
+        evState.releaseKey(code);
     }
 
     // NOT Effected by state.
