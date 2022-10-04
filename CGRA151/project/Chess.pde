@@ -8,10 +8,6 @@ class Chess {
         for (GamePart part : parts) { part.draw();   }
     }
 
-    public final void drawBoard() {
-        // draw cells.
-    }
-
     public void newGame() {
         parts = new ArrayList<GamePart>();
         

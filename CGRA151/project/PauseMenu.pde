@@ -20,7 +20,7 @@ class PauseMenu extends Menu {
     Executable QUITGAME = new Executable() {
         public void run() {
             print("[MENU > QUITGAME] RUN EXECUTABLE: Game quitting...\n");
-            quit();
+            exit();
         }
     };
 

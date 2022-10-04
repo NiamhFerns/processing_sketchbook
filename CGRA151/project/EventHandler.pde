@@ -55,7 +55,9 @@ private class StateMenu implements EventHandlerState {
 
 // Input handling for gameplay. Translates actions to interact with the board.
 private class StateGameOverview implements EventHandlerState {
-    void actionMouse() {}
+    void actionMouse() {
+        GAME.board.selectPiece();
+    }
     
     void actionKey(int code) { 
         switch(code) {
@@ -80,7 +82,9 @@ private class StateGameOverview implements EventHandlerState {
 
 // Input handling for moving a piece around the board. Conceptually acts as an 'overlay' for StateGameplay
 private class StateGameMove implements EventHandlerState {
-    void actionMouse() {}
+    void actionMouse() {
+        GAME.board.movePiece();
+    }
     
     void actionKey(int code) {}
     
