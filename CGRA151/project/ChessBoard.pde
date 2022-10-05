@@ -21,6 +21,7 @@ class ChessBoard implements GamePart {
     }
 
     public void update() {
+        if (EVENTS.currentState() == EventStates.MENU) return;
         activeCell = null;
         for (int y = 0; y < cells.length; y++) {
             for (int x = 0; x < cells[y].length; x++) {
@@ -47,13 +48,14 @@ class ChessBoard implements GamePart {
         for (int y = 0; y < rows.length; ++y) {
             String[] pieces = split(rows[y], " ");
             for (int x = 0; x < pieces.length; ++x) {
-                cells[y][x].setContents(new ChessPiece(pieces[x]));
+                cells[y][x].setContents(new ChessPiece(pieces[x], y > 5));
             }
         }
     }
 
     public void selectPiece() {
         if (activeCell == null || activeCell.isFree()) return;  
+        if (EVENTS.getTurn(activeCell.occupiedBy())) return;
         activeCell.setSelected();
         selectedCell = activeCell;
         EVENTS.setState(EventStates.PIECE_SELECTED);
@@ -70,7 +72,11 @@ class ChessBoard implements GamePart {
         
         // If this active cell is in the list of possible cells to move to, move it.
         if (activeCell.in(selectedCell.contains.getPossibleMoves())) {
-            print("Moving to a cell.");
+            activeCell.acceptPiece(selectedCell);
+            selectedCell.setUnselected();
+            selectedCell = null;
+            EVENTS.setState(EventStates.GAMEPLAY);
+            EVENTS.turnOver();
             return;
         }
         // else play an error audio clip.

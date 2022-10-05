@@ -25,6 +25,15 @@ class Cell implements GamePart {
             if(!isFree()) contains.draw();
         popMatrix();
     }
+
+    public void acceptPiece(Cell c) {
+        this.contains = c.contains;
+        c.contains = new ChessPiece();
+    }
+
+    public boolean occupiedBy() {
+        return contains.getColour();
+    }
     
     public void setContents(ChessPiece piece) {
         contains = piece;

@@ -46,6 +46,9 @@ class PauseMenu extends Menu {
     }
     
     public void draw() {
-        if (visible()) super.draw();
+        if (!visible()) return;
+        fill(155, 155, 155, 200);
+        rect(0, 0, width, height);
+        super.draw();
     }
 }

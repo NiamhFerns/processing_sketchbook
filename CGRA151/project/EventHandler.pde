@@ -104,6 +104,9 @@ private class StateGameMove implements EventHandlerState {
 // The main Event handler. Any keypreses are passed to this and are then sent to the appropriate place.
 class EventHandler {
     EventHandlerState evState;
+    boolean currentTurn;
+    int turnNumber;
+    int moveNumber;
 
     // This allows other parts of the program to set the game state. Ideally this would be only used by
     // menus and or major game events (checkmate, etc).
@@ -132,6 +135,16 @@ class EventHandler {
 
     public EventStates currentState() {
         return evState.type();
+    }
+
+    public boolean getTurn(boolean pieceColour) {
+        return pieceColour == currentTurn;
+    }
+
+    public void turnOver() {
+        if (currentTurn) turnNumber++;
+        moveNumber++;
+        currentTurn = !currentTurn;
     } 
 
     // Receive any inputs from the official key/mouse methods.
@@ -150,5 +163,8 @@ class EventHandler {
     // Only one event handler needs to be present.
     EventHandler() {
         setState(EventStates.MENU);
+        currentTurn = false;
+        turnNumber = 0;
+        moveNumber = 0;
     }
 }
