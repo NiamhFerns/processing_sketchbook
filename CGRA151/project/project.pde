@@ -12,10 +12,12 @@ void setup() {
     frameRate(60);
 
     // Instantiate globals.
-    BOARDSIZE = (width / 5) * 4;
+    // BOARDSIZE = (width / 5) * 4;
+    BOARDSIZE = width;
     DIMENSION = 8;
     CELLSIZE = BOARDSIZE / DIMENSION;
-    BOARDOFFSET = (width - BOARDSIZE) / 2;
+    // BOARDOFFSET = (width - BOARDSIZE) / 2;
+    BOARDOFFSET = 0;
 
     print(BOARDSIZE + "\n" + DIMENSION + "\n" + CELLSIZE + "\n" + BOARDOFFSET + "\n");
     

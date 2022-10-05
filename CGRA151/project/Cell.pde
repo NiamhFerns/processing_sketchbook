@@ -20,6 +20,10 @@ class Cell implements GamePart {
         fill(isSelected() ? color(150, 0, 0) : isActive() ? color(150, 150, 0) : cellBackground);
         noStroke();
         rect(position.x(), position.y(), CELLSIZE, CELLSIZE);
+        pushMatrix();
+            translate(position.x + CELLSIZE / 2, position.y + CELLSIZE / 2);
+            if(!isFree()) contains.draw();
+        popMatrix();
     }
     
     public void setContents(ChessPiece piece) {

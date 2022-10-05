@@ -33,7 +33,7 @@ class ChessBoard implements GamePart {
     public void draw() {
         // Centre the board.
         pushMatrix();
-        translate(BOARDOFFSET, BOARDOFFSET);
+        // translate(BOARDOFFSET, BOARDOFFSET);
         for (int y = 0; y < cells.length; y++) {
             for (int x = 0; x < cells[y].length; x++) {
                 cells[y][x].draw();

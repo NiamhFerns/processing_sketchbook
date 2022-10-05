@@ -2,12 +2,19 @@
 interface PieceType {
     ArrayList<String> getPossibleMoves();
     String name();
+    void drawSprite();
 }
 
 private class KingPiece implements PieceType {
     public ArrayList<String> getPossibleMoves() { return new ArrayList<String>(0); }
     public String name() {
         return "King";
+    }
+    public void drawSprite() { 
+        rectMode(CENTER);
+        fill(243, 139, 168);
+        rect(0, 0, CELLSIZE / 2, CELLSIZE / 2);
+        rectMode(CORNER);
     }
 }
 
@@ -16,12 +23,24 @@ private class QueenPiece implements PieceType {
     public String name() {
         return "Queen";
     }
+    public void drawSprite() { 
+        rectMode(CENTER);
+        fill(250, 179, 135);
+        rect(0, 0, CELLSIZE / 2, CELLSIZE / 2);
+        rectMode(CORNER);
+    }
 }
 
 private class BishopPiece implements PieceType {
     public ArrayList<String> getPossibleMoves() { return new ArrayList<String>(0); }
     public String name() {
         return "Bishop";
+    }
+    public void drawSprite() { 
+        rectMode(CENTER);
+        fill(245, 194, 231);
+        rect(0, 0, CELLSIZE / 2, CELLSIZE / 2);
+        rectMode(CORNER);
     }
 }
 
@@ -30,12 +49,24 @@ private class KnightPiece implements PieceType {
     public String name() {
         return "Knight";
     }
+    public void drawSprite() { 
+        rectMode(CENTER);
+        fill(166, 227, 161);
+        rect(0, 0, CELLSIZE / 2, CELLSIZE / 2);
+        rectMode(CORNER);
+    }
 }
 
 private class RookPiece implements PieceType {
     public ArrayList<String> getPossibleMoves() { return new ArrayList<String>(0); }
     public String name() {
         return "Rook";
+    }
+    public void drawSprite() { 
+        rectMode(CENTER);
+        fill(180, 190, 254);
+        rect(0, 0, CELLSIZE / 2, CELLSIZE / 2);
+        rectMode(CORNER);
     }
 }
 
@@ -44,6 +75,12 @@ private class PawnPiece implements PieceType {
     public String name() {
         return "Pawn";
     }
+    public void drawSprite() { 
+        rectMode(CENTER);
+        fill(116, 199, 236);
+        rect(0, 0, CELLSIZE / 2, CELLSIZE / 2);
+        rectMode(CORNER);
+    }
 }
 
 private class Empty implements PieceType {
@@ -51,6 +88,7 @@ private class Empty implements PieceType {
     public String name() {
         return "EMPTY";
     }
+    public void drawSprite() {}
 }
 
 public class ChessPiece implements GamePart {
@@ -59,7 +97,9 @@ public class ChessPiece implements GamePart {
     private boolean recheckMoves = true;
 
     public void update() { if(recheckMoves) possibleMoves = type.getPossibleMoves(); }
-    public void draw()   {}
+    public void draw()   {
+        type.drawSprite();
+    }
 
     public String getType() { return type.name(); }
 
