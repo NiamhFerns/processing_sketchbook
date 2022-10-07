@@ -7,6 +7,7 @@ interface PieceType {
 }
 
 private class KingPiece implements PieceType {
+    private ArrayList<Pair<Integer, Integer>> movements;
     private boolean colour;
     public ArrayList<String> getPossibleMoves() { return new ArrayList<String>(0); }
     public String name() {
@@ -25,6 +26,15 @@ private class KingPiece implements PieceType {
 
     public KingPiece(boolean colour) {
         this.colour = colour;
+        movements = new ArrayList<Pair<Integer, Integer>>();
+        movements.add(new Pair(0 ,  1)); // Up
+        movements.add(new Pair(-1,  1)); // up Left
+        movements.add(new Pair(1 ,  1)); // Up Right
+        movements.add(new Pair(0 , -1)); // Down
+        movements.add(new Pair(-1, -1)); // Down Left
+        movements.add(new Pair(1 , -1)); // Down Right
+        movements.add(new Pair(-1,  0)); // Left
+        movements.add(new Pair(1 ,  0)); // Right
     }
 }
 
@@ -109,8 +119,11 @@ private class RookPiece implements PieceType {
 }
 
 private class PawnPiece implements PieceType {
+    private boolean firstMove;
     private boolean colour;
-    public ArrayList<String> getPossibleMoves() { return new ArrayList<String>(0); }
+    public ArrayList<String> getPossibleMoves() { 
+        return new ArrayList<String>(0); 
+    }
     public String name() {
         return "Pawn";
     }
@@ -125,6 +138,7 @@ private class PawnPiece implements PieceType {
     }
     public PawnPiece(boolean colour) {
         this.colour = colour;
+        this.firstMove = true;
     }
 }
 

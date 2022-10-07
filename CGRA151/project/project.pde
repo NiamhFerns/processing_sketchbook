@@ -3,6 +3,7 @@ int BOARDSIZE;
 int DIMENSION;
 int CELLSIZE;
 int BOARDOFFSET;
+PFont FONT;
 
 Chess GAME;
 EventHandler EVENTS; 
@@ -10,6 +11,9 @@ EventHandler EVENTS;
 void setup() {
     size(1000, 1000);
     frameRate(60);
+    FONT = createFont("Arial",16,true);
+    textAlign(LEFT, TOP);
+
 
     // Instantiate globals.
     // BOARDSIZE = (width / 5) * 4;

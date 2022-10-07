@@ -24,6 +24,8 @@ class Cell implements GamePart {
             translate(position.x + CELLSIZE / 2, position.y + CELLSIZE / 2);
             if(!isFree()) contains.draw();
         popMatrix();
+        fill(0, 255, 0);
+        text(cellID, position.x(), position.y());
     }
 
     public void acceptPiece(Cell c) {
