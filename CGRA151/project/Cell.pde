@@ -53,9 +53,10 @@ class Cell implements GamePart {
         return contains.isEmpty();
     }
 
-    public boolean in(ArrayList<Cell> cells) {
+    public boolean in(ArrayList<String> cells) {
         return true;
     }
+
 
     public void printContents() {
         if (!isFree()) print("[VALUE] CELL CONTENTS: [" + cellID + "] contains [" + contains.getType() + "]\n");

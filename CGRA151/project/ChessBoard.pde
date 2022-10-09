@@ -54,7 +54,7 @@ class ChessBoard implements GamePart {
         String[] chessPieces = loadStrings("PieceTesting.txt");
         for (String piece : chessPieces) {
             String[] pieceInfo = piece.split(",");
-            cellsMap.get(pieceInfo[0]).setContents(new ChessPiece(pieceInfo[1], pieceInfo[2].equals("b")));
+            cellsMap.get(pieceInfo[0]).setContents(new ChessPiece(pieceInfo[0], pieceInfo[1], pieceInfo[2].equals("b")));
         }
     }
 

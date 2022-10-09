@@ -14,4 +14,9 @@ public class Pair<P, Q> {
         this.pValue = pValue;
         this.qValue = qValue;
     }
+
+    public Pair() {
+        pValue = null;
+        qValue = null;
+    }
 }
