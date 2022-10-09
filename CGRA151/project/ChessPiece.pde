@@ -1,39 +1,18 @@
 // Chess Piece States
 interface PieceType {
+    String name();
+    PImage getTexture(boolean colour);
     ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move);
     ArrayList<Pair<Integer, Integer>> getDirections();
-    String name();
-    void drawSprite();
-    boolean getColour(); // false == white. THink of this as a latch.
 }
 
 public class ChessPiece implements GamePart {
     private PieceType type;
-    private ArrayList<String> possibleMoves;
-    private boolean recheckMoves = true;
-    private String location;
-
-    public void update() { 
-        // if(recheckMoves) possibleMoves = type.getPossibleMoves();
-    }
-    public void draw()   {
-        type.drawSprite();
-    }
-
-    public String getType() { return type.name(); }
-    public boolean getColour() { return type.getColour(); }
-
-    public boolean isEmpty() { return type.name().equals("EMPTY"); }
-
-    public ArrayList<String> getPossibleMoves() {
-        ArrayList<Pair<Integer, Integer>> directions = type.getDirections();
-        ArrayList<String> possibleMoves = new ArrayList<String>();
-        for (Pair<Integer, Integer> d : directions) { 
-            possibleMoves.addAll(type.getPossibleMoves(location, d));
-        }
-        return possibleMoves;
-    }
     
+    private String location;
+    private boolean colour;
+    private ArrayList<String> possibleMoves;
+
     ChessPiece() {
         type = new Empty();
         possibleMoves = new ArrayList<String>();
@@ -41,6 +20,8 @@ public class ChessPiece implements GamePart {
 
     ChessPiece(String location, String piece, boolean colour) {
         // print((piece != "#" ? piece : "empty") + "\n");
+        this.colour = colour;
+        this.location = location;
         switch (piece) {
             // case "k":
             //     type = new KingPiece(colour);
@@ -55,7 +36,7 @@ public class ChessPiece implements GamePart {
             //     type = new KnightPiece(colour);
             //     break;
             case "r":
-                type = new RookPiece(colour);
+                type = new RookPiece();
                 break;
             // case "p":
             //     type = new PawnPiece(colour);
@@ -65,17 +46,46 @@ public class ChessPiece implements GamePart {
         }
         possibleMoves = new ArrayList<String>();
     }
+
+    public String getType() { return type.name(); }
+    
+    public boolean getColour() { return colour; }
+    
+    public boolean isEmpty() { return type.name().equals("EMPTY"); }
+
+    public ArrayList<String> getPossibleMoves() {
+        ArrayList<Pair<Integer, Integer>> directions = type.getDirections();
+        ArrayList<String> possibleMoves = new ArrayList<String>();
+        for (Pair<Integer, Integer> d : directions) { 
+            possibleMoves.addAll(type.getPossibleMoves(location, d));
+        }
+        return possibleMoves;
+    }
+
+    public void changeLocation(String location) {
+        this.location = location;
+    }
+    
+    public void update() { 
+        // if(recheckMoves) possibleMoves = type.getPossibleMoves();
+    }
+
+    public void draw()   {
+        // image(type.getSprite(), )
+        Vector2D position = GAME.board.getPositionByCellID(location);
+        imageMode(CENTER);
+        fill(180, 190, colour ? 254 : 0);
+        // rect(position.x() + (CELLSIZE / 2), position.y() + (CELLSIZE / 2), CELLSIZE / 2, CELLSIZE / 2);
+        image(type.getTexture(colour), position.x() + (CELLSIZE / 2), position.y() + (CELLSIZE / 2));
+        imageMode(CORNER);
+    }
 }
 
 private class Empty implements PieceType {
-    private boolean colour = false;
     public ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move) { return new ArrayList<String>(0); }
     public ArrayList<Pair<Integer, Integer>> getDirections() { return new ArrayList<Pair<Integer, Integer>>(); }
     public String name() {
         return "EMPTY";
     }
-    public void drawSprite() {}
-    public boolean getColour() {
-        return false;
-    }
+    public PImage getTexture(boolean colour) { return new PImage(0, 0); }
 }

@@ -6,6 +6,7 @@ int BOARDOFFSET;
 PFont FONT;
 
 Chess GAME;
+ImageHandler TEXTURES;
 EventHandler EVENTS; 
 
 void setup() {
@@ -26,6 +27,7 @@ void setup() {
     print(BOARDSIZE + "\n" + DIMENSION + "\n" + CELLSIZE + "\n" + BOARDOFFSET + "\n");
     
     // Create new game.
+    TEXTURES = new ImageHandler();
     GAME = new Chess();
     EVENTS = new EventHandler();
 

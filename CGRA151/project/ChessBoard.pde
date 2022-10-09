@@ -14,48 +14,25 @@ class ChessBoard implements GamePart {
                 String cellID = str(char(65 + x)) + (8 - y);
                 
                 // We are adding our cells such that they read from left to right; top to bottom.
-                Cell cell = new Cell(cellID, new Vector2D(CELLSIZE * x, CELLSIZE * y), color(black ? 0 : 200));
+                Cell cell = new Cell(cellID, new Vector2D(CELLSIZE * x, CELLSIZE * y), black ? color(191, 107, 75) : color(200));
                 cellsMap.put(cellID, cell);
-                print("Stored ID: " + cellsMap.get(cellID).getID() + " Actual ID: " + cellID + "\n");
                 black = !black;
             }
             black = !black;
         }
-
-        resetPieces();
     }
 
-    public void update() {
-        if (EVENTS.currentState() == EventStates.MENU) return;
-        activeCell = null;
-        for (Cell c : cellsMap.values()) {
-            c.update();
-            if (c.isActive()) activeCell = c;
-        }
-    }
+    // QUERRYS
+    public Vector2D getPositionByCellID(String cellID) { return cellsMap.get(cellID).getPosition(); }
 
-    public void draw() {
-        // Centre the board.
-        pushMatrix();
-        // translate(BOARDOFFSET, BOARDOFFSET);
-        for (Cell c : cellsMap.values()) {
-            c.draw();
-        }
-        popMatrix();
-    }
-
-    public void resetPieces() {
-        // Empty the pieces.
+    public void clear() {
         for (Cell c : cellsMap.values()) {
             c.setContents(new ChessPiece());
         }
+    }
 
-        // Load the default board.
-        String[] chessPieces = loadStrings("PieceTesting.txt");
-        for (String piece : chessPieces) {
-            String[] pieceInfo = piece.split(",");
-            cellsMap.get(pieceInfo[0]).setContents(new ChessPiece(pieceInfo[0], pieceInfo[1], pieceInfo[2].equals("b")));
-        }
+    public void addPiece(String cellID, ChessPiece piece) {
+        cellsMap.get(cellID).setContents(piece);
     }
 
     public void selectPiece() {
@@ -87,5 +64,22 @@ class ChessBoard implements GamePart {
         }
         // else play an error audio clip.
 
+    }
+
+    public void update() {
+        if (EVENTS.currentState() == EventStates.MENU) return;
+        activeCell = null;
+        for (Cell c : cellsMap.values()) {
+            c.update();
+            if (c.isActive()) activeCell = c;
+        }
+    }
+
+    public void draw() {
+        pushMatrix();
+        for (Cell c : cellsMap.values()) {
+            c.draw();
+        }
+        popMatrix();
     }
 }

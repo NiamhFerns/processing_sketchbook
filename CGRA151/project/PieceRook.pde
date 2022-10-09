@@ -1,5 +1,5 @@
 private class RookPiece implements PieceType {
-    private boolean colour;
+
     public ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move) { 
         return new ArrayList<String>(0); 
     }
@@ -7,16 +7,9 @@ private class RookPiece implements PieceType {
     public String name() {
         return "Rook";
     }
-    public void drawSprite() { 
-        rectMode(CENTER);
-        fill(180, 190, colour ? 254 : 0);
-        rect(0, 0, CELLSIZE / 2, CELLSIZE / 2);
-        rectMode(CORNER);
+    public PImage getTexture(boolean colour) { 
+        return TEXTURES.get(PieceTexture.ROOK, colour);
     }
-    public boolean getColour() {
-        return colour;
-    }
-    public RookPiece(boolean colour) {
-        this.colour = colour;
+    public RookPiece() {
     }
 }

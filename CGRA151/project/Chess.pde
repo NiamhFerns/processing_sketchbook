@@ -13,11 +13,24 @@ class Chess {
         
         board = new ChessBoard();
         parts.add(board);
+        resetPieces();
         
         menu = new PauseMenu();
         menu.setVisible(false);
         parts.add(menu);
 
+    }
+
+    public void resetPieces() {
+        // Empty the pieces.
+        board.clear();
+        // Load the default board.
+        String[] chessPieces = loadStrings("PieceTesting.txt");
+        for (String piece : chessPieces) {
+            // Format: "cellID,type,colour". (0 == white, 1 == black)
+            String[] pieceInfo = piece.split(",");
+            board.addPiece(pieceInfo[0], new ChessPiece(pieceInfo[0], pieceInfo[1], pieceInfo[2].equals("b")));
+        }
     }
     
     public void exitToMenu() {
