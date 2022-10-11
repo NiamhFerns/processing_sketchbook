@@ -12,7 +12,6 @@ EventHandler EVENTS;
 void setup() {
     size(1000, 1000);
     frameRate(60);
-    FONT = createFont("Arial",16,true);
     textAlign(LEFT, TOP);
 
 

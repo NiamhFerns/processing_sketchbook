@@ -10,6 +10,13 @@ public class Pair<P, Q> {
         return qValue;
     }
 
+    public void setValue(Q v) {
+        qValue = v;
+    }
+    public void setKey(P v) {
+        pValue = v;
+    }
+
     public Pair(P pValue, Q qValue) {
         this.pValue = pValue;
         this.qValue = qValue;

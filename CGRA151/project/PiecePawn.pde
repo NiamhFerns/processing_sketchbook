@@ -1,24 +1,80 @@
-private class PawnPiece {
-    private boolean firstMove;
+private class PawnPiece implements PieceType {
     private boolean colour;
-    public ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move) { 
-        return new ArrayList<String>(0); 
+
+    public ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move) {
+        ArrayList<String> possibleMoves = new ArrayList<String>();
+        if (!GAME.board.checkValidCellID(cellID)) return possibleMoves;
+        
+        // If we're moving forward. Do these checked then return
+        if(move.value().intValue() == 0) {
+            if (GAME.board.getCellByID(cellID).hasEnemy() || GAME.board.getCellByID(cellID).hasFriendly()) return possibleMoves;
+            possibleMoves.add(cellID);
+            return possibleMoves;
+        }
+
+        // Assuming we're not moving forward, do this.
+        if (GAME.board.getCellByID(cellID).hasEnemy()) possibleMoves.add(cellID);
+        return possibleMoves;
     }
-    public ArrayList<Pair<Integer, Integer>> getDirections() { return new ArrayList<Pair<Integer, Integer>>(); }
+
+    public ArrayList<Pair<Integer, Integer>> getDirections() { 
+        ArrayList<Pair<Integer, Integer>> dirs = new ArrayList<Pair<Integer, Integer>>();
+        dirs.add(new Pair<Integer, Integer>(colour ? -1 : 1, 0));
+        dirs.add(new Pair<Integer, Integer>(colour ? -1 : 1, 1));
+        dirs.add(new Pair<Integer, Integer>(colour ? -1 : 1, -1));
+        return dirs;
+    }
+
     public String name() {
         return "Pawn";
     }
-    public void drawSprite() { 
-        rectMode(CENTER);
-        fill(116, 199, colour ? 236 : 0);
-        rect(0, 0, CELLSIZE / 2, CELLSIZE / 2);
-        rectMode(CORNER);
+
+    public PImage getTexture(boolean colour) { 
+        return TEXTURES.get(PieceTexture.PAWN, colour);
     }
-    public boolean getColour() {
-        return colour;
-    }
+
     public PawnPiece(boolean colour) {
         this.colour = colour;
-        this.firstMove = true;
+    }
+}
+
+private class NewPawnPiece implements PieceType {
+    private boolean colour;
+
+    public ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move) {
+        ArrayList<String> possibleMoves = new ArrayList<String>();
+        if (!GAME.board.checkValidCellID(cellID)) return possibleMoves;
+        
+        // If we're moving forward. Do these checked then return
+        if(move.value().intValue() == 0) {
+            if (GAME.board.getCellByID(cellID).hasEnemy() || GAME.board.getCellByID(cellID).hasFriendly()) return possibleMoves;
+            possibleMoves.add(cellID);
+            return possibleMoves;
+        }
+
+        // Assuming we're not moving forward, do this.
+        if (GAME.board.getCellByID(cellID).hasEnemy()) possibleMoves.add(cellID);
+        return possibleMoves;
+    }
+
+    public ArrayList<Pair<Integer, Integer>> getDirections() { 
+        ArrayList<Pair<Integer, Integer>> dirs = new ArrayList<Pair<Integer, Integer>>();
+        dirs.add(new Pair<Integer, Integer>(colour ? -1 : 1, 0));
+        dirs.add(new Pair<Integer, Integer>(colour ? -2 : 2, 0));
+        dirs.add(new Pair<Integer, Integer>(colour ? -1 : 1, 1));
+        dirs.add(new Pair<Integer, Integer>(colour ? -1 : 1, -1));
+        return dirs;
+    }
+
+    public String name() {
+        return "New Pawn";
+    }
+
+    public PImage getTexture(boolean colour) { 
+        return TEXTURES.get(PieceTexture.PAWN, colour);
+    }
+
+    public NewPawnPiece(boolean colour) {
+        this.colour = colour;
     }
 }

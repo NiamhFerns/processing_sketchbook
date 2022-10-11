@@ -4,6 +4,7 @@ class ChessBoard implements GamePart {
     private HashMap<String, Cell> cellsMap;
     private Cell activeCell;
     private Cell selectedCell;
+    private ArrayList<String> validCells;
 
     ChessBoard() {
         cellsMap = new HashMap<String, Cell>();
@@ -25,6 +26,23 @@ class ChessBoard implements GamePart {
     // QUERRYS
     public Vector2D getPositionByCellID(String cellID) { return cellsMap.get(cellID).getPosition(); }
 
+    public Cell getCellByID(String cellID) { return cellsMap.get(cellID); }
+
+    public Cell getSelected() { return selectedCell; }
+
+    public String nextCell(String currentCell, Pair<Integer, Integer> nextCellDirection) {
+        String nextCell = "";
+        nextCell = nextCell + char(currentCell.charAt(0) + nextCellDirection.value());
+        nextCell = nextCell + char(currentCell.charAt(1) + nextCellDirection.key());
+        return nextCell;
+    }
+
+    public boolean checkValidCellID(String cellID) {
+        boolean valid = cellID.charAt(0) >= 'A' && cellID.charAt(0) <= 'H' && cellID.charAt(1) >= '1' && cellID.charAt(1) <= '8';
+        print("checking validity..." + cellID + ": " + valid + "\n");
+        return valid;
+    }
+
     public void clear() {
         for (Cell c : cellsMap.values()) {
             c.setContents(new ChessPiece());
@@ -40,6 +58,11 @@ class ChessBoard implements GamePart {
         if (EVENTS.getTurn(!activeCell.occupiedBy())) return;
         activeCell.setSelected();
         selectedCell = activeCell;
+        validCells = selectedCell.contains.getPossibleMoves();
+        for (String c : validCells) {
+            cellsMap.get(c).setHighlighted();
+        }
+        print("Valid cells length:" + validCells.size() + "\n");
         EVENTS.setState(EventStates.PIECE_SELECTED);
     }
 
@@ -50,18 +73,23 @@ class ChessBoard implements GamePart {
             activeCell.setUnselected();
             selectedCell = null;
             EVENTS.setState(EventStates.GAMEPLAY);
+            for (String c : validCells) {
+                cellsMap.get(c).setUnhighlighted();
+            }
             return;
         }
         
         // If this active cell is in the list of possible cells to move to, move it.
-        if (activeCell.in(selectedCell.contains.getPossibleMoves())) {
-            activeCell.acceptPiece(selectedCell);
-            selectedCell.setUnselected();
-            selectedCell = null;
-            EVENTS.setState(EventStates.GAMEPLAY);
-            EVENTS.turnOver();
-            return;
+        if (!activeCell.in(validCells)) return;
+        for (String c : validCells) {
+            cellsMap.get(c).setUnhighlighted();
         }
+        if (selectedCell.getContents().getType().equals("New Pawn")) selectedCell.setContents(new ChessPiece(selectedCell.getID(), "p", selectedCell.occupiedBy()));
+        activeCell.acceptPiece(selectedCell);
+        selectedCell.setUnselected();
+        selectedCell = null;
+        EVENTS.setState(EventStates.GAMEPLAY);
+        EVENTS.turnOver();
         // else play an error audio clip.
 
     }
@@ -76,10 +104,8 @@ class ChessBoard implements GamePart {
     }
 
     public void draw() {
-        pushMatrix();
         for (Cell c : cellsMap.values()) {
             c.draw();
         }
-        popMatrix();
     }
 }

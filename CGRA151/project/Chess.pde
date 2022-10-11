@@ -25,7 +25,7 @@ class Chess {
         // Empty the pieces.
         board.clear();
         // Load the default board.
-        String[] chessPieces = loadStrings("PieceTesting.txt");
+        String[] chessPieces = loadStrings("ResetPieces.txt");
         for (String piece : chessPieces) {
             // Format: "cellID,type,colour". (0 == white, 1 == black)
             String[] pieceInfo = piece.split(",");

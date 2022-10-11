@@ -4,6 +4,7 @@ class Cell implements GamePart {
     private Vector2D position;
     private color cellBackground;
     private boolean selected = false;
+    private boolean highlighted = false;
     private boolean active   = false;
 
     public boolean isActive()      { return active;    }
@@ -11,15 +12,30 @@ class Cell implements GamePart {
     public boolean isSelected()    { return selected;  }
     public void    setSelected()   { selected = true;  }
     public void    setUnselected() { selected = false; }
+    public void    setHighlighted()   { highlighted = true;  }
+    public void    setUnhighlighted() { highlighted = false; }
     
     public String  getID()         { return cellID;    }
     public Vector2D getPosition()  { return new Vector2D(position); }
+    public ChessPiece getContents() { return contains; }
 
 
     public void acceptPiece(Cell c) {
         contains = c.contains;
         contains.changeLocation(cellID);
         c.clearContents();
+    }
+
+    public boolean hasEnemy() {
+        return GAME.board.getSelected().contains.getColour() 
+            != GAME.board.getCellByID(cellID).contains.getColour() 
+            && !GAME.board.getCellByID(cellID).isFree();
+    }
+
+    public boolean hasFriendly() {
+        return GAME.board.getSelected().contains.getColour() 
+            == GAME.board.getCellByID(cellID).contains.getColour() 
+            && !GAME.board.getCellByID(cellID).isFree();
     }
 
     public boolean occupiedBy() {
@@ -40,7 +56,10 @@ class Cell implements GamePart {
     }
 
     public boolean in(ArrayList<String> cells) {
-        return true;
+        for (String c : cells) {
+            if (c.equals(cellID)) return true;
+        }
+        return false;
     }
 
 
@@ -55,7 +74,7 @@ class Cell implements GamePart {
     }
 
     public void draw() {
-        fill(isSelected() ? color(150, 0, 0) : isActive() ? color(150, 150, 0) : cellBackground);
+        fill(isSelected() ? color(150, 0, 0) : highlighted ? color(0, 150, 150) : isActive() ? color(150, 150, 0) : cellBackground);
         noStroke();
         rect(position.x(), position.y(), CELLSIZE, CELLSIZE);
         // pushMatrix();

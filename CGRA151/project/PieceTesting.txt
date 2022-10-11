@@ -3,8 +3,8 @@ E8,k,b
 F8,b,b
 G8,h,b
 H8,r,b
-A7,p,b
-H2,p,w
+A7,np,b
+H2,np,w
 A1,r,w
 B1,h,w
 C1,b,w

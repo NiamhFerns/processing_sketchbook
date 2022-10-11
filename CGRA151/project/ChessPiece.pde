@@ -23,24 +23,27 @@ public class ChessPiece implements GamePart {
         this.colour = colour;
         this.location = location;
         switch (piece) {
-            // case "k":
-            //     type = new KingPiece(colour);
-            //     break;
-            // case "q":
-            //     type = new QueenPiece(colour);
-            //     break;
-            // case "b":
-            //     type = new BishopPiece(colour);
-            //     break;
-            // case "h":
-            //     type = new KnightPiece(colour);
-            //     break;
+            case "k":
+                type = new KingPiece();
+                break;
+            case "q":
+                type = new QueenPiece();
+                break;
+            case "b":
+                type = new BishopPiece();
+                break;
+            case "h":
+                type = new KnightPiece();
+                break;
             case "r":
                 type = new RookPiece();
                 break;
-            // case "p":
-            //     type = new PawnPiece(colour);
-            //     break;
+            case "p":
+                type = new PawnPiece(colour);
+                break;
+            case "np":
+                type = new NewPawnPiece(colour);
+                break;
             default:
                 type = new Empty();
         }
@@ -57,8 +60,9 @@ public class ChessPiece implements GamePart {
         ArrayList<Pair<Integer, Integer>> directions = type.getDirections();
         ArrayList<String> possibleMoves = new ArrayList<String>();
         for (Pair<Integer, Integer> d : directions) { 
-            possibleMoves.addAll(type.getPossibleMoves(location, d));
+            possibleMoves.addAll(type.getPossibleMoves(GAME.board.nextCell(location, d), d));
         }
+        possibleMoves.add(location);
         return possibleMoves;
     }
 
@@ -67,7 +71,6 @@ public class ChessPiece implements GamePart {
     }
     
     public void update() { 
-        // if(recheckMoves) possibleMoves = type.getPossibleMoves();
     }
 
     public void draw()   {
