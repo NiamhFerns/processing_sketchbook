@@ -68,8 +68,8 @@ class Cell implements GamePart {
     }
     
     public void update() {
-        boolean xBound = mouseX > position.x() + BOARDOFFSET && mouseX < position.x() + CELLSIZE + BOARDOFFSET;
-        boolean yBound = mouseY > position.y() + BOARDOFFSET && mouseY < position.y() + CELLSIZE + BOARDOFFSET;
+        boolean xBound = mouseX > position.x() && mouseX < position.x() + CELLSIZE;
+        boolean yBound = mouseY > position.y() && mouseY < position.y() + CELLSIZE;
         active = xBound && yBound;
     }
 
@@ -81,8 +81,8 @@ class Cell implements GamePart {
             // translate(position.x + CELLSIZE / 2, position.y + CELLSIZE / 2);
             if(!isFree()) contains.draw();
         // popMatrix();
-        fill(0, 255, 0);
-        text(cellID, position.x(), position.y());
+        // fill(0, 255, 0);
+        // text(cellID, position.x(), position.y());
     }
 
     public Cell(String cellID, Vector2D position, color cellBackground) {

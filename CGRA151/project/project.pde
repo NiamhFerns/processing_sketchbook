@@ -17,11 +17,11 @@ void setup() {
 
     // Instantiate globals.
     // BOARDSIZE = (width / 5) * 4;
-    BOARDSIZE = width;
+    BOARDSIZE = (int)(0.9 * width);
     DIMENSION = 8;
     CELLSIZE = BOARDSIZE / DIMENSION;
     // BOARDOFFSET = (width - BOARDSIZE) / 2;
-    BOARDOFFSET = 0;
+    BOARDOFFSET = (int)(0.1 * width) / 2;
 
     print(BOARDSIZE + "\n" + DIMENSION + "\n" + CELLSIZE + "\n" + BOARDOFFSET + "\n");
     

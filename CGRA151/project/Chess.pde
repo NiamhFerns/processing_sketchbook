@@ -12,6 +12,7 @@ class Chess {
         parts = new ArrayList<GamePart>();
         
         board = new ChessBoard();
+        parts.add(new ChessUI());
         parts.add(board);
         resetPieces();
         
@@ -44,7 +45,6 @@ class Chess {
         // Here we're initialising a very basic ECS that will be based on an observer.
         // Each part of the game will, as it's created, be added to this list and will have the correct methods called every tick.
         parts = new ArrayList<GamePart>();
-        
 
         // menu = new StartMenu();
         menu = new StartMenu();

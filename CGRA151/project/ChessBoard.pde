@@ -15,7 +15,7 @@ class ChessBoard implements GamePart {
                 String cellID = str(char(65 + x)) + (8 - y);
                 
                 // We are adding our cells such that they read from left to right; top to bottom.
-                Cell cell = new Cell(cellID, new Vector2D(CELLSIZE * x, CELLSIZE * y), black ? color(191, 107, 75) : color(200));
+                Cell cell = new Cell(cellID, new Vector2D(CELLSIZE * x + BOARDOFFSET, CELLSIZE * y + BOARDOFFSET), black ? color(69, 77, 95) : color(230, 234, 215));
                 cellsMap.put(cellID, cell);
                 black = !black;
             }
