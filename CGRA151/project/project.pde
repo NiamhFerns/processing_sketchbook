@@ -7,7 +7,9 @@ PFont FONT;
 
 Chess GAME;
 ImageHandler TEXTURES;
-EventHandler EVENTS; 
+EventHandler EVENTS;
+CellTextureHandler CELL_TEXTURES_WHITE;
+CellTextureHandler CELL_TEXTURES_BLACK;
 
 void setup() {
     size(1000, 1000);
@@ -27,6 +29,8 @@ void setup() {
     
     // Create new game.
     TEXTURES = new ImageHandler();
+    CELL_TEXTURES_WHITE = new WhiteCellTextures();
+    CELL_TEXTURES_BLACK = new BlackCellTextures();
     GAME = new Chess();
     EVENTS = new EventHandler();
 

@@ -15,7 +15,7 @@ class ChessBoard implements GamePart {
                 String cellID = str(char(65 + x)) + (8 - y);
                 
                 // We are adding our cells such that they read from left to right; top to bottom.
-                Cell cell = new Cell(cellID, new Vector2D(CELLSIZE * x + BOARDOFFSET, CELLSIZE * y + BOARDOFFSET), black ? color(69, 77, 95) : color(230, 234, 215));
+                Cell cell = new Cell(cellID, new Vector2D(CELLSIZE * x + BOARDOFFSET, CELLSIZE * y + BOARDOFFSET), black ? CELL_TEXTURES_BLACK : CELL_TEXTURES_WHITE);
                 cellsMap.put(cellID, cell);
                 black = !black;
             }
@@ -39,7 +39,6 @@ class ChessBoard implements GamePart {
 
     public boolean checkValidCellID(String cellID) {
         boolean valid = cellID.charAt(0) >= 'A' && cellID.charAt(0) <= 'H' && cellID.charAt(1) >= '1' && cellID.charAt(1) <= '8';
-        print("checking validity..." + cellID + ": " + valid + "\n");
         return valid;
     }
 
@@ -62,7 +61,6 @@ class ChessBoard implements GamePart {
         for (String c : validCells) {
             cellsMap.get(c).setHighlighted();
         }
-        print("Valid cells length:" + validCells.size() + "\n");
         EVENTS.setState(EventStates.PIECE_SELECTED);
     }
 

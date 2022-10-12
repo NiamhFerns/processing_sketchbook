@@ -31,16 +31,33 @@ public class ImageHandler {
 
     private ImageHandler() {
         bishop[0] = loadImage("textures/oBishop-white.png");
+        bishop[0].resize((int)(bishop[0].width * 0.1), (int)(bishop[0].height * 0.1));
         bishop[1] = loadImage("textures/oBishop-black.png");
+        bishop[1].resize((int)(bishop[1].width * 0.1), (int)(bishop[1].height * 0.1));
+        
         rook[0] = loadImage("textures/oRook-white.png");
+        rook[0].resize((int)(rook[0].width * 0.1), (int)(rook[0].height * 0.1));
         rook[1] = loadImage("textures/oRook-black.png");
+        rook[1].resize((int)(rook[1].width * 0.1), (int)(rook[1].height * 0.1));
+        
         queen[0] = loadImage("textures/oQueen-white.png");
+        queen[0].resize((int)(queen[0].width * 0.1), (int)(queen[0].height * 0.1));
         queen[1] = loadImage("textures/oQueen-black.png");
+        queen[1].resize((int)(queen[1].width * 0.1), (int)(queen[1].height * 0.1));
+        
         king[0] = loadImage("textures/oKing-white.png");
+        king[0].resize((int)(king[0].width * 0.1), (int)(king[0].height * 0.1));
         king[1] = loadImage("textures/oKing-black.png");
+        king[1].resize((int)(king[1].width * 0.1), (int)(king[1].height * 0.1));
+        
         knight[0] = loadImage("textures/oKnight-white.png");
+        knight[0].resize((int)(knight[0].width * 0.1), (int)(knight[0].height * 0.1));
         knight[1] = loadImage("textures/oKnight-black.png");
+        knight[1].resize((int)(knight[1].width * 0.1), (int)(knight[1].height * 0.1));
+        
         pawn[0] = loadImage("textures/oPawn-white.png");
+        pawn[0].resize((int)(pawn[0].width * 0.1), (int)(pawn[0].height * 0.1));
         pawn[1] = loadImage("textures/oPawn-black.png");
+        pawn[1].resize((int)(pawn[1].width * 0.1), (int)(pawn[1].height * 0.1));
     }
 }

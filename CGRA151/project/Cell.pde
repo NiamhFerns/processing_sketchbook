@@ -7,6 +7,8 @@ class Cell implements GamePart {
     private boolean highlighted = false;
     private boolean active   = false;
 
+    private CellTextureHandler textures;
+
     public boolean isActive()      { return active;    }
     
     public boolean isSelected()    { return selected;  }
@@ -74,21 +76,28 @@ class Cell implements GamePart {
     }
 
     public void draw() {
-        fill(isSelected() ? color(150, 0, 0) : highlighted ? color(0, 150, 150) : isActive() ? color(150, 150, 0) : cellBackground);
-        noStroke();
-        rect(position.x(), position.y(), CELLSIZE, CELLSIZE);
-        // pushMatrix();
-            // translate(position.x + CELLSIZE / 2, position.y + CELLSIZE / 2);
-            if(!isFree()) contains.draw();
-        // popMatrix();
-        // fill(0, 255, 0);
-        // text(cellID, position.x(), position.y());
+
+        if (isActive() && isSelected()) {
+            image(textures.get(CellTexture.HOVER_SELECTED), position.x(), position.y());
+        } else if(isActive() && highlighted) {
+            image(textures.get(CellTexture.HOVER_VIABLE_MOVE), position.x(), position.y());
+        } else if (highlighted) {
+            image(textures.get(CellTexture.VIABLE_MOVE), position.x(), position.y());
+        } else if (isActive()) {
+            image(textures.get(CellTexture.HOVERED), position.x(), position.y());
+        } else if (isSelected()) {
+            image(textures.get(CellTexture.SELECTED), position.x(), position.y());
+        } else {
+            image(textures.get(CellTexture.DEFAULT), position.x(), position.y());
+        }
+        
+        if(!isFree()) contains.draw();
     }
 
-    public Cell(String cellID, Vector2D position, color cellBackground) {
+    public Cell(String cellID, Vector2D position, CellTextureHandler textures) {
         this.cellID = cellID;
         this.position = position;
-        this.cellBackground = cellBackground;
+        this.textures = textures;
         contains = new ChessPiece();
         active = false;
     }
