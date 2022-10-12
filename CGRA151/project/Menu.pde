@@ -48,6 +48,7 @@ abstract class Menu implements GamePart {
             fill(b.buttonColor());
             noStroke();
             rect(b.x(), b.y(), b.width(), b.height());
+            b.drawText();
         }
     }
 }

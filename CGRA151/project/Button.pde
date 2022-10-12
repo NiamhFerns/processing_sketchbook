@@ -34,4 +34,16 @@ class Button {
         this.position = position;
         this.buttonColor = buttonColor;
     }
+
+    public void drawText() {
+        textSize(30);
+        textAlign(CENTER, CENTER);
+        fill(255);
+        if (label.equals("Toggle Timer"))
+            text("Timer: " + (OPTIONAL_FEATURES.getStatus(OptionalComponents.TIMER) ? "On" : "Off"), position.x() + dimensions.width / 2, position.y() + dimensions.height / 2);
+        else if (label.equals("Toggle Rotation"))
+            text("Rotation: " + (OPTIONAL_FEATURES.getStatus(OptionalComponents.BOARD_ROTATION) ? "On" : "Off"), position.x() + dimensions.width / 2, position.y() + dimensions.height / 2);
+        else
+            text(label, position.x() + dimensions.width / 2, position.y() + dimensions.height / 2);
+    }
 }

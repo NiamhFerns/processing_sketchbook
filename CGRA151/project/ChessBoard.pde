@@ -60,6 +60,7 @@ class ChessBoard implements GamePart {
         validCells = selectedCell.contains.getPossibleMoves();
         for (String c : validCells) {
             cellsMap.get(c).setHighlighted();
+            if(cellsMap.get(c).hasEnemy()) cellsMap.get(c).setDanger();
         }
         EVENTS.setState(EventStates.PIECE_SELECTED);
     }
@@ -73,23 +74,44 @@ class ChessBoard implements GamePart {
             EVENTS.setState(EventStates.GAMEPLAY);
             for (String c : validCells) {
                 cellsMap.get(c).setUnhighlighted();
+                cellsMap.get(c).unsetDanger();
             }
             return;
         }
         
         // If this active cell is in the list of possible cells to move to, move it.
         if (!activeCell.in(validCells)) return;
+        EVENTS.setState(EventStates.GAMEPLAY);
         for (String c : validCells) {
             cellsMap.get(c).setUnhighlighted();
+            cellsMap.get(c).unsetDanger();
         }
-        if (selectedCell.getContents().getType().equals("New Pawn")) selectedCell.setContents(new ChessPiece(selectedCell.getID(), "p", selectedCell.occupiedBy()));
+        if (selectedCell.getContents().getType().equals("New Pawn")) {
+            GAME.killPiece(selectedCell.getContents());
+            ChessPiece piece = new ChessPiece(selectedCell.getID(), "p", selectedCell.occupiedBy());
+            GAME.addPiece(piece);
+            selectedCell.setContents(piece);
+        }
+        if (activeCell.hasEnemy()) GAME.killPiece(activeCell.getContents());
         activeCell.acceptPiece(selectedCell);
         selectedCell.setUnselected();
         selectedCell = null;
-        EVENTS.setState(EventStates.GAMEPLAY);
         EVENTS.turnOver();
-        // else play an error audio clip.
+    }
 
+    public void rotateBoard() {
+        print("Rotating board... \n");
+        for (int y = 0; y < DIMENSION; y++) {
+            for (int x = 0; x < DIMENSION; x++) {
+                // string of a + x  AND 8 - y
+                String cellID;
+                if(EVENTS.getCurrentTurn()) cellID = str(char(72 - x)) + (1 + y);
+                else cellID = str(char(65 + x)) + (8 - y);
+                
+                // We are adding our cells such that they read from left to right; top to bottom.
+                cellsMap.get(cellID).setPosition(new Vector2D(CELLSIZE * x + BOARDOFFSET, CELLSIZE * y + BOARDOFFSET));
+            }
+        }
     }
 
     public void update() {

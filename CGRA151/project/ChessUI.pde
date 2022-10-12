@@ -11,7 +11,7 @@ public class ChessUI implements GamePart {
         fill(color(69, 77, 95));
         rect(0, 0, width, height);
         fill(color(230, 234, 215));
-        rect(playAreaOffset, playAreaOffset, width - (playAreaOffset * 2), height - (playAreaOffset * 2));
+        rect(playAreaOffset, playAreaOffset, (width) - (playAreaOffset * 2), (height - 200) - (playAreaOffset * 2));
 
         imageMode(CENTER);
         for (int i = 0; i < 8; ++i) {
@@ -19,8 +19,12 @@ public class ChessUI implements GamePart {
         }
         imageMode(CENTER);
         for (int i = 0; i < 8; ++i) {
-            image(cols[i], BOARDOFFSET + (CELLSIZE / 2) + (i * CELLSIZE), height - BOARDOFFSET / 2);
+            image(cols[i], BOARDOFFSET + (CELLSIZE / 2) + (i * CELLSIZE), (height - 200) - BOARDOFFSET / 2);
         }
+
+        fill(color(49, 57, 75));
+        // rect(BOARDSIZE + (BOARDOFFSET * 2), 0, width, height);
+        rect(0, BOARDSIZE + (BOARDOFFSET * 2), width, height);
     }
 
     public ChessUI() {

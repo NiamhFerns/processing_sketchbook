@@ -141,11 +141,21 @@ class EventHandler {
         return pieceColour == currentTurn;
     }
 
+    public boolean getCurrentTurn() {
+        return currentTurn;
+    }
+
     public void turnOver() {
         if (currentTurn) turnNumber++;
         moveNumber++;
         currentTurn = !currentTurn;
     } 
+
+    public void resetMoves() {
+        currentTurn = false;
+        turnNumber = 1;
+        moveNumber = 1;
+    }
 
     // Receive any inputs from the official key/mouse methods.
     void mouseClicked() {
@@ -164,7 +174,7 @@ class EventHandler {
     EventHandler() {
         setState(EventStates.MENU);
         currentTurn = false;
-        turnNumber = 0;
-        moveNumber = 0;
+        turnNumber = 1;
+        moveNumber = 1;
     }
 }

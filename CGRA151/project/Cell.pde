@@ -6,6 +6,7 @@ class Cell implements GamePart {
     private boolean selected = false;
     private boolean highlighted = false;
     private boolean active   = false;
+    private boolean inDanger = false;
 
     private CellTextureHandler textures;
 
@@ -16,9 +17,14 @@ class Cell implements GamePart {
     public void    setUnselected() { selected = false; }
     public void    setHighlighted()   { highlighted = true;  }
     public void    setUnhighlighted() { highlighted = false; }
+    public void    setDanger() { inDanger = true; }
+    public void    unsetDanger() { inDanger = false; }
     
     public String  getID()         { return cellID;    }
     public Vector2D getPosition()  { return new Vector2D(position); }
+    public void setPosition(Vector2D v) {
+        position = v;
+    }
     public ChessPiece getContents() { return contains; }
 
 
@@ -29,12 +35,14 @@ class Cell implements GamePart {
     }
 
     public boolean hasEnemy() {
+        if (GAME.board.getSelected() == null) return false;
         return GAME.board.getSelected().contains.getColour() 
             != GAME.board.getCellByID(cellID).contains.getColour() 
             && !GAME.board.getCellByID(cellID).isFree();
     }
 
     public boolean hasFriendly() {
+        if (GAME.board.getSelected() == null) return false;
         return GAME.board.getSelected().contains.getColour() 
             == GAME.board.getCellByID(cellID).contains.getColour() 
             && !GAME.board.getCellByID(cellID).isFree();
@@ -76,22 +84,27 @@ class Cell implements GamePart {
     }
 
     public void draw() {
-
+        imageMode(CORNER);
         if (isActive() && isSelected()) {
             image(textures.get(CellTexture.HOVER_SELECTED), position.x(), position.y());
+        } else if(inDanger && isActive()) {
+            image(textures.get(CellTexture.HOVER_DANGER), position.x(), position.y());
+        } else if(inDanger) {
+            image(textures.get(CellTexture.DANGER), position.x(), position.y());
         } else if(isActive() && highlighted) {
             image(textures.get(CellTexture.HOVER_VIABLE_MOVE), position.x(), position.y());
-        } else if (highlighted) {
-            image(textures.get(CellTexture.VIABLE_MOVE), position.x(), position.y());
-        } else if (isActive()) {
-            image(textures.get(CellTexture.HOVERED), position.x(), position.y());
         } else if (isSelected()) {
             image(textures.get(CellTexture.SELECTED), position.x(), position.y());
+        } else if (highlighted) {
+            image(textures.get(CellTexture.VIABLE_MOVE), position.x(), position.y());
+        } else if (isActive() && EVENTS.currentState() != EventStates.PIECE_SELECTED && contains.getColour() == EVENTS.getCurrentTurn() && !isFree()) {
+            image(textures.get(CellTexture.HOVERED), position.x(), position.y());
         } else {
             image(textures.get(CellTexture.DEFAULT), position.x(), position.y());
         }
         
         if(!isFree()) contains.draw();
+        if(inDanger && isActive()) image(textures.get(CellTexture.DANGER_CROSS), position.x(), position.y());
     }
 
     public Cell(String cellID, Vector2D position, CellTextureHandler textures) {
