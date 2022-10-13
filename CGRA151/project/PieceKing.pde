@@ -1,4 +1,5 @@
 private class KingPiece implements PieceType {
+    // We only want to check the adjacent cell in each direction so no recusion needed.
     public ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move) {
         ArrayList<String> possibleMoves = new ArrayList<String>();
         if (!GAME.board.checkValidCellID(cellID) || GAME.board.getCellByID(cellID).hasFriendly()) return possibleMoves;

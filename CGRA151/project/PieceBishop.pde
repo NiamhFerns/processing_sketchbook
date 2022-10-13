@@ -1,4 +1,5 @@
 private class BishopPiece implements PieceType {
+    // Check each cell recursively on the diagonals and return if we find an enemy or a block.
     public ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move) {
         ArrayList<String> possibleMoves = new ArrayList<String>();
         if (!GAME.board.checkValidCellID(cellID) || GAME.board.getCellByID(cellID).hasFriendly()) return possibleMoves;

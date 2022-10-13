@@ -113,44 +113,45 @@ class EventHandler {
     void setState(EventStates state) {
         switch(state) {
             case MENU:
-                print("[EVENT] STATE SWITCH: [" + (evState == null ? "NONE" : evState.getName()) + "] -> [MENU]\n");
                 evState = new StateMenu();
                 break;
 
             case GAMEPLAY:
-                print("[EVENT] STATE SWITCH: [" + (evState == null ? "NONE" : evState.getName()) + "] -> [GAMEPLAY]\n");
                 evState = new StateGameOverview();
                 break;
             
             case PIECE_SELECTED:
-                print("[EVENT] STATE SWITCH: [" + (evState == null ? "NONE" : evState.getName()) + "] -> [PIECE_SELECTED]\n");
                 evState = new StateGameMove();
                 break;
             
             default :
-                print("[EVENT WARNING] STATE SWITCH: NOT A VALID STATE!");    
                 break;	
         }
     } 
 
+    // Returns the current state.
     public EventStates currentState() {
         return evState.type();
     }
 
+    // Returns whether the current turn matches the piece colour you want.
     public boolean getTurn(boolean pieceColour) {
         return pieceColour == currentTurn;
     }
 
+    // Returns the current turn in general.
     public boolean getCurrentTurn() {
         return currentTurn;
     }
 
+    // Sets the game to move to the next turn.
     public void turnOver() {
         if (currentTurn) turnNumber++;
         moveNumber++;
         currentTurn = !currentTurn;
     } 
 
+    // Resets the event handler to start from turn one and white.
     public void resetMoves() {
         currentTurn = false;
         turnNumber = 1;

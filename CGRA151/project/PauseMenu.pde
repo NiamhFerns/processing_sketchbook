@@ -1,10 +1,10 @@
+// See Menu.pde for better understanding.
 class PauseMenu extends Menu {
     // ----------------------------------------------------------------------------
     //                              Lambdas to Run
     // ----------------------------------------------------------------------------
     Executable newGame = new Executable(){
         public void run() {
-            print("[MENU > NEWGAME] RUN EXECUTABLE: Resetting board...\n");
             GAME.newGame();
             EVENTS.setState(EventStates.GAMEPLAY);
         }
@@ -12,14 +12,12 @@ class PauseMenu extends Menu {
     
     Executable returnToStart = new Executable() {
         public void run() {
-            print("[MENU > RETURNTOSTART] RUN EXECUTABLE: Exiting level and returning to start screen...\n");
             GAME.exitToMenu();
         }
     };
 
     Executable QUITGAME = new Executable() {
         public void run() {
-            print("[MENU > QUITGAME] RUN EXECUTABLE: Game quitting...\n");
             exit();
         }
     };

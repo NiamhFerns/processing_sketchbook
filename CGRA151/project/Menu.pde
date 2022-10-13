@@ -1,3 +1,4 @@
+// Each menu is a container for a set of buttons that each have an Executable that can be run.
 abstract class Menu implements GamePart {
     // ----------------------------------------------------------------------------
     //                       Menu Functionality & Fields
@@ -7,10 +8,12 @@ abstract class Menu implements GamePart {
     private Executable currentButtonAction;
     private String menuName;
 
+    // Returns the action that can be run with this button.
     public Executable getClickable() {
         return currentButtonAction;
     }
 
+    // Adds a button to the menu.
     protected void addButton(Button button) {
         buttons.put(button.getLabel(), button);
     }
@@ -20,15 +23,19 @@ abstract class Menu implements GamePart {
         visible = true;
         this.menuName = menuName;
     }
-    
+
+    // Sets whether the menu is current visible for pauses/popups.  
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
 
+    // Returns whether the menu is currently visible.
     public boolean visible() { return visible; } 
 
+    // Get the menu name.
     public String getName() { return menuName; }
 
+    // check whether the mouse is withing the bounds of a button then highlight that button and set it's action as the current action.
     public void update() {
         currentButtonAction = new EMPTY_EXECUTABLE();
         for(Button b : buttons.values()) {
@@ -43,6 +50,7 @@ abstract class Menu implements GamePart {
         }
     }
 
+    // Draw each of the buttons via delegation.
     public void draw() {
         for(Button b : buttons.values()) {
             fill(b.buttonColor());

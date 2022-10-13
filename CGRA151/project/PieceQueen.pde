@@ -1,4 +1,5 @@
 private class QueenPiece implements PieceType {
+    // This recursively check in all dircetions and return if there's a block or an enemy.
     public ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move) {
         ArrayList<String> possibleMoves = new ArrayList<String>();
         if (!GAME.board.checkValidCellID(cellID) || GAME.board.getCellByID(cellID).hasFriendly()) return possibleMoves;

@@ -1,10 +1,10 @@
+// See Menu.pde for better understanding.
 class StartMenu extends Menu {
     // ----------------------------------------------------------------------------
     //                              Lambdas to Run
     // ----------------------------------------------------------------------------
     Executable gameStart = new Executable(){
         public void run() {
-            print("[MENU > GAMESTART] RUN EXECUTABLE: Game starting...\n");
             GAME.newGame();
             EVENTS.setState(EventStates.GAMEPLAY);
         }
@@ -12,21 +12,18 @@ class StartMenu extends Menu {
 
     Executable enableTimer = new Executable() {
         public void run() {
-            print("[MENU > ENABLE TIMER] RUN EXECUTABLE: Timer is now: " + OPTIONAL_FEATURES.getStatus(OptionalComponents.TIMER) + "\n");
             OPTIONAL_FEATURES.toggle(OptionalComponents.TIMER);
         }
     };
     
     Executable enableRotation = new Executable() {
         public void run() {
-            print("[MENU > ENABLE TIMER] RUN EXECUTABLE: Rotation is now: " + OPTIONAL_FEATURES.getStatus(OptionalComponents.BOARD_ROTATION) + "\n");
             OPTIONAL_FEATURES.toggle(OptionalComponents.BOARD_ROTATION);
         }
     };
     
     Executable quitGame = new Executable() {
         public void run() {
-            print("[MENU > QUITGAME] RUN EXECUTABLE: Game quitting...\n");
             exit();
         }
     };

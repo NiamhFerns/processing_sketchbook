@@ -1,7 +1,9 @@
+// The possible textures that can be used for a chess piece.
 public enum PieceTexture {
     ROOK, KNIGHT, BISHOP, QUEEN, KING, PAWN
 }
 
+// This is the same as the cell texture holder just done with a set of arrays.
 public class ImageHandler {
     private PImage[] rook = new PImage[2];
     private PImage[] bishop = new PImage[2];

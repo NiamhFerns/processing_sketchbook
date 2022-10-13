@@ -1,3 +1,4 @@
+// Represents a vector in 2D space.
 class Vector2D {
     private float x, y;
 

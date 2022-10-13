@@ -1,6 +1,8 @@
 private class PawnPiece implements PieceType {
     private boolean colour;
 
+    // check the cell in front and add it if there is no one there.
+    // Take care as this differes heavily from the other pieces.
     public ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move) {
         ArrayList<String> possibleMoves = new ArrayList<String>();
         if (!GAME.board.checkValidCellID(cellID)) return possibleMoves;
@@ -19,7 +21,9 @@ private class PawnPiece implements PieceType {
 
     public ArrayList<Pair<Integer, Integer>> getDirections() { 
         ArrayList<Pair<Integer, Integer>> dirs = new ArrayList<Pair<Integer, Integer>>();
+        // Main direction
         dirs.add(new Pair<Integer, Integer>(colour ? -1 : 1, 0));
+        // Attack vector directions.
         dirs.add(new Pair<Integer, Integer>(colour ? -1 : 1, 1));
         dirs.add(new Pair<Integer, Integer>(colour ? -1 : 1, -1));
         return dirs;
@@ -40,7 +44,7 @@ private class PawnPiece implements PieceType {
 
 private class NewPawnPiece implements PieceType {
     private boolean colour;
-
+    // This functions the same as a normal pawn.
     public ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move) {
         ArrayList<String> possibleMoves = new ArrayList<String>();
         if (!GAME.board.checkValidCellID(cellID)) return possibleMoves;
@@ -59,6 +63,7 @@ private class NewPawnPiece implements PieceType {
 
     public ArrayList<Pair<Integer, Integer>> getDirections() { 
         ArrayList<Pair<Integer, Integer>> dirs = new ArrayList<Pair<Integer, Integer>>();
+        // Here we simply add an additional direction of a forward move if the cell is new.
         dirs.add(new Pair<Integer, Integer>(colour ? -1 : 1, 0));
         dirs.add(new Pair<Integer, Integer>(colour ? -2 : 2, 0));
         dirs.add(new Pair<Integer, Integer>(colour ? -1 : 1, 1));

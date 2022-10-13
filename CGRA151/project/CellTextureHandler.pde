@@ -1,3 +1,4 @@
+// These are the possible textures we can assign to a cell.
 public enum CellTexture {
     DEFAULT,
     HOVERED,
@@ -13,9 +14,11 @@ public enum CellTexture {
 // Template pattern to fill out textures for black & white
 public abstract class CellTextureHandler {
     protected HashMap<CellTexture, PImage> textures;
-    
+
+    // We force the subclasses to fill out any textures needed by that thing.    
     public abstract void fillTextures();
 
+    // Get a specific texture.
     public PImage get(CellTexture texture) {
         return textures.get(texture);
     }

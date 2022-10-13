@@ -9,22 +9,17 @@ class Button {
     private color buttonColor;
     private boolean highlighted;
 
+    // Getters for the button.
     public float x() { return position.x(); }
-    
     public float y() { return position.y(); }
-
     public float width() { return dimensions.width; }
-    
     public float height() { return dimensions.height; }
-
     public color buttonColor() { return highlighted ? color(0) : buttonColor; }
-
     public Executable getAction() { return action; }
-
     public String getLabel() { return label; }
 
+    // Setters for button.
     public void highlight() { highlighted = true; }
-
     public void unhighlight() { highlighted = false; }
 
     public Button(Executable action, String label, Vector2D position, Size dimensions, color buttonColor) {
@@ -35,6 +30,7 @@ class Button {
         this.buttonColor = buttonColor;
     }
 
+    // Draw a button and it's relevant text.
     public void drawText() {
         textSize(30);
         textAlign(CENTER, CENTER);

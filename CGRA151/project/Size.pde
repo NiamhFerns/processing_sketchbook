@@ -1,3 +1,4 @@
+// Just a simple dimention.
 class Size {
     float width;
     float height;

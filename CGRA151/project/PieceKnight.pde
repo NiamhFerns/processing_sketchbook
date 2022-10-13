@@ -1,4 +1,5 @@
 private class KnightPiece implements PieceType {
+    // Check each of 8 possible spots and add them if we can move there. No recursion needed.
     public ArrayList<String> getPossibleMoves(String cellID, Pair<Integer, Integer> move) {
         ArrayList<String> possibleMoves = new ArrayList<String>();
         if (!GAME.board.checkValidCellID(cellID) || GAME.board.getCellByID(cellID).hasFriendly()) return possibleMoves;

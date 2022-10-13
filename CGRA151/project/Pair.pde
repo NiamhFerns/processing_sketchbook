@@ -1,3 +1,4 @@
+// Represents a pair of data. Conceptually acts as a single entry map.
 public class Pair<P, Q> {
     P pValue;
     Q qValue;
