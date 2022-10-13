@@ -1,55 +1,74 @@
-interface Globals {
-    // Primitive Globals
-    int BOARDSIZE = 800;
-    int DIMENSION = 8;
-    int CELLSIZE = BOARDSIZE / DIMENSION;
-    int BOARDOFFSET = 100;
-}
+// Primitive Globals
+int BOARDSIZE;
+int DIMENSION;
+int CELLSIZE;
+int BOARDOFFSET;
+float BOARD_RATIO;
 
-class Chess implements Globals {
-    private ChessBoard board;
-    private ArrayList<GamePart> parts; // ECS ArrayList
-    private EventHandler eventHandler;
+// These are the handlers responsible for all the games textures.
+ImageHandler TEXTURES;
+CellTextureHandler CELL_TEXTURES_WHITE;
+CellTextureHandler CELL_TEXTURES_BLACK;
 
-    public void tick() {
-        for (GamePart part : parts) { part.update(this); }
-        for (GamePart part : parts) { part.draw();   }
-    }
+// These are the games core components.
+Chess GAME;
+EventHandler EVENTS;
 
-    public final void drawBoard() {
-        // draw cells.
-    }
+// Handler for any optional components added/removed at runtime.
+OptionalComponentsHandler OPTIONAL_FEATURES;
 
-    public void mouseClicked() {
-        eventHandler.mouseClicked();
-    }
-
-    Chess() {
-        // Here we're initialising a very basic ECS that will be based on an observer.
-        // Each part of the game will, as it's created, be added to this list and will have the correct methods called every tick.
-        eventHandler = new EventHandler();
-        board = new ChessBoard();
-        parts = new ArrayList<GamePart>();
-        parts.add(board);
-    }
-}
-
-Chess game;
+// Time tracking.
+long LAST_FRAME_TIME;
+long PREVIOUS_MILLIS;
 
 void setup() {
-    size(1000, 1000);
+    size(800, 1000);
     frameRate(60);
-    game = new Chess();
+
+    // Instantiate globals.
+    BOARD_RATIO = 0.9;
+    BOARDSIZE = (int)(BOARD_RATIO * width);
+    DIMENSION = 8;
+    CELLSIZE = BOARDSIZE / DIMENSION;
+    BOARDOFFSET = (int)(0.1 * width) / 2;
+    
+    // Ready assets.
+    TEXTURES = new ImageHandler();
+    CELL_TEXTURES_WHITE = new WhiteCellTextures();
+    CELL_TEXTURES_BLACK = new BlackCellTextures();
+    
+    // Instantiate core game.
+    GAME = new Chess();
+    EVENTS = new EventHandler();
+    
+    // Instantiate optional components.
+    OPTIONAL_FEATURES = new OptionalComponentsHandler();
+
+    LAST_FRAME_TIME = 0;
+    PREVIOUS_MILLIS = 0;
 }
 
 // This will act as the subject in the observer.
 void draw() {
     clear();
     background(255);
-    game.tick();
+    GAME.tick();
+    long currentMillis = millis();
+    LAST_FRAME_TIME = currentMillis - PREVIOUS_MILLIS;
+    PREVIOUS_MILLIS = currentMillis;
 }
 
 // All actions are caught here and then passed through the game to the event handler.
 void mouseClicked() {
-    game.mouseClicked();
+    EVENTS.mouseClicked();
+}
+
+void keyPressed() {
+    // Override processings auto exit on escape function.
+    if (keyCode == 27) key = 0;
+    EVENTS.keyPressed(keyCode);
+}
+
+void keyReleased() {
+    EVENTS.keyReleased(keyCode);
 }
